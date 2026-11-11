@@ -1,0 +1,785 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 90;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6A38CC9730A4261C007EE4B4 /* MyAppWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 6A38CC9630A4261C007EE4B4 /* MyAppWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6A38CCA330A4261D007EE4B4 /* MyAppWatch.app in Resources */ = {isa = PBXBuildFile; fileRef = 6A38CC9130A4261C007EE4B4 /* MyAppWatch.app */; };
+		6A38CCB230A42625007EE4B4 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A38CCB130A42625007EE4B4 /* WidgetKit.framework */; };
+		6A38CCB430A42625007EE4B4 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A38CCB330A42625007EE4B4 /* SwiftUI.framework */; };
+		6A38CCBF30A42626007EE4B4 /* StepComplicationsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6A38CCAF30A42625007EE4B4 /* StepComplicationsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6A38CC9830A4261C007EE4B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A38CC9530A4261C007EE4B4;
+			remoteInfo = "MyAppWatch Watch App";
+		};
+		6A38CCA130A4261D007EE4B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A38CC9030A4261C007EE4B4;
+			remoteInfo = MyAppWatch;
+		};
+		6A38CCBD30A42626007EE4B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A38CCAE30A42625007EE4B4;
+			remoteInfo = StepComplicationsExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6A38CCA730A4261D007EE4B4 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolder = Product;
+			files = (
+				6A38CC9730A4261C007EE4B4 /* MyAppWatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+		};
+		6A38CCC430A42626007EE4B4 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "";
+			dstSubfolder = PlugIns;
+			files = (
+				6A38CCBF30A42626007EE4B4 /* StepComplicationsExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		000000000000000000000120 /* Schritte-Apple Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Schritte-Apple Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A38CC9130A4261C007EE4B4 /* MyAppWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyAppWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A38CC9630A4261C007EE4B4 /* MyAppWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyAppWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A38CCAF30A42625007EE4B4 /* StepComplicationsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = StepComplicationsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A38CCB130A42625007EE4B4 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		6A38CCB330A42625007EE4B4 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		6A38CCC730A426A2007EE4B4 /* StepComplicationsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StepComplicationsExtension.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		6A38CCC030A42626007EE4B4 /* Exceptions for "StepComplications" folder in "StepComplicationsExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 6A38CCAE30A42625007EE4B4 /* StepComplicationsExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		000000000000000000000010 /* Schritte-Apple Watch */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Schritte-Apple Watch";
+			sourceTree = "<group>";
+		};
+		6A38CC9A30A4261C007EE4B4 /* MyAppWatch Watch App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "MyAppWatch Watch App";
+			sourceTree = "<group>";
+		};
+		6A38CCB530A42625007EE4B4 /* StepComplications */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				6A38CCC030A42626007EE4B4 /* Exceptions for "StepComplications" folder in "StepComplicationsExtension" target */,
+			);
+			path = StepComplications;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		000000000000000130000000 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		6A38CC9330A4261C007EE4B4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		6A38CCAC30A42625007EE4B4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+				6A38CCB430A42625007EE4B4 /* SwiftUI.framework in Frameworks */,
+				6A38CCB230A42625007EE4B4 /* WidgetKit.framework in Frameworks */,
+			);
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		000000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				6A38CCC730A426A2007EE4B4 /* StepComplicationsExtension.entitlements */,
+				000000000000000000000010 /* Schritte-Apple Watch */,
+				6A38CC9A30A4261C007EE4B4 /* MyAppWatch Watch App */,
+				6A38CCB530A42625007EE4B4 /* StepComplications */,
+				6A38CCB030A42625007EE4B4 /* Frameworks */,
+				000000000000000000000020 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		000000000000000000000020 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000120 /* Schritte-Apple Watch.app */,
+				6A38CC9130A4261C007EE4B4 /* MyAppWatch.app */,
+				6A38CC9630A4261C007EE4B4 /* MyAppWatch Watch App.app */,
+				6A38CCAF30A42625007EE4B4 /* StepComplicationsExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6A38CCB030A42625007EE4B4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6A38CCB130A42625007EE4B4 /* WidgetKit.framework */,
+				6A38CCB330A42625007EE4B4 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		000000000000000100000000 /* Schritte-Apple Watch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 000000000000000110000000 /* Build configuration list for PBXNativeTarget "Schritte-Apple Watch" */;
+			buildPhases = (
+				000000000000000120000000 /* Sources */,
+				000000000000000130000000 /* Frameworks */,
+				000000000000000140000000 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6A38CCA230A4261D007EE4B4 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				000000000000000000000010 /* Schritte-Apple Watch */,
+			);
+			name = "Schritte-Apple Watch";
+			productName = MyApp;
+			productReference = 000000000000000000000120 /* Schritte-Apple Watch.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6A38CC9030A4261C007EE4B4 /* MyAppWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A38CCA830A4261D007EE4B4 /* Build configuration list for PBXNativeTarget "MyAppWatch" */;
+			buildPhases = (
+				6A38CC8F30A4261C007EE4B4 /* Resources */,
+				6A38CCA730A4261D007EE4B4 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6A38CC9930A4261C007EE4B4 /* PBXTargetDependency */,
+			);
+			name = MyAppWatch;
+			productName = MyAppWatch;
+			productReference = 6A38CC9130A4261C007EE4B4 /* MyAppWatch.app */;
+			productType = "com.apple.product-type.application.watchapp2-container";
+		};
+		6A38CC9530A4261C007EE4B4 /* MyAppWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A38CCA430A4261D007EE4B4 /* Build configuration list for PBXNativeTarget "MyAppWatch Watch App" */;
+			buildPhases = (
+				6A38CC9230A4261C007EE4B4 /* Sources */,
+				6A38CC9330A4261C007EE4B4 /* Frameworks */,
+				6A38CC9430A4261C007EE4B4 /* Resources */,
+				6A38CCC430A42626007EE4B4 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6A38CCBE30A42626007EE4B4 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				6A38CC9A30A4261C007EE4B4 /* MyAppWatch Watch App */,
+			);
+			name = "MyAppWatch Watch App";
+			productName = "MyAppWatch Watch App";
+			productReference = 6A38CC9630A4261C007EE4B4 /* MyAppWatch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6A38CCAE30A42625007EE4B4 /* StepComplicationsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A38CCC130A42626007EE4B4 /* Build configuration list for PBXNativeTarget "StepComplicationsExtension" */;
+			buildPhases = (
+				6A38CCAB30A42625007EE4B4 /* Sources */,
+				6A38CCAC30A42625007EE4B4 /* Frameworks */,
+				6A38CCAD30A42625007EE4B4 /* Resources */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				6A38CCB530A42625007EE4B4 /* StepComplications */,
+			);
+			name = StepComplicationsExtension;
+			productName = StepComplicationsExtension;
+			productReference = 6A38CCAF30A42625007EE4B4 /* StepComplicationsExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		000000000000000000000000 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2710;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					000000000000000100000000 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+					6A38CC9030A4261C007EE4B4 = {
+						CreatedOnToolsVersion = 27.1;
+					};
+					6A38CC9530A4261C007EE4B4 = {
+						CreatedOnToolsVersion = 27.1;
+					};
+					6A38CCAE30A42625007EE4B4 = {
+						CreatedOnToolsVersion = 27.1;
+					};
+				};
+			};
+			buildConfigurationList = 000000000000000010000000 /* Build configuration list for PBXProject "Schritte-Apple Watch" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 000000000000000000000001;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 90;
+			productRefGroup = 000000000000000000000020 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				000000000000000100000000 /* Schritte-Apple Watch */,
+				6A38CC9030A4261C007EE4B4 /* MyAppWatch */,
+				6A38CC9530A4261C007EE4B4 /* MyAppWatch Watch App */,
+				6A38CCAE30A42625007EE4B4 /* StepComplicationsExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		000000000000000140000000 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				6A38CCA330A4261D007EE4B4 /* MyAppWatch.app in Resources */,
+			);
+		};
+		6A38CC8F30A4261C007EE4B4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		6A38CC9430A4261C007EE4B4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		6A38CCAD30A42625007EE4B4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		000000000000000120000000 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+		6A38CC9230A4261C007EE4B4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+		6A38CCAB30A42625007EE4B4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6A38CC9930A4261C007EE4B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6A38CC9530A4261C007EE4B4 /* MyAppWatch Watch App */;
+			targetProxy = 6A38CC9830A4261C007EE4B4 /* PBXContainerItemProxy */;
+		};
+		6A38CCA230A4261D007EE4B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6A38CC9030A4261C007EE4B4 /* MyAppWatch */;
+			targetProxy = 6A38CCA130A4261D007EE4B4 /* PBXContainerItemProxy */;
+		};
+		6A38CCBE30A42626007EE4B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6A38CCAE30A42625007EE4B4 /* StepComplicationsExtension */;
+			targetProxy = 6A38CCBD30A42626007EE4B4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		000000000000000011000000 /* Debug configuration for PBXProject "Schritte-Apple Watch" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DRIVERKIT_DEPLOYMENT_TARGET = 27.0;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PROJECT_UNIQUE_VALUE = W6HIJ66C;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TVOS_DEPLOYMENT_TARGET = 27.0;
+				WATCHOS_DEPLOYMENT_TARGET = 27.0;
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Debug;
+		};
+		000000000000000012000000 /* Release configuration for PBXProject "Schritte-Apple Watch" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DRIVERKIT_DEPLOYMENT_TARGET = 27.0;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PROJECT_UNIQUE_VALUE = W6HIJ66C;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				TVOS_DEPLOYMENT_TARGET = 27.0;
+				WATCHOS_DEPLOYMENT_TARGET = 27.0;
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Release;
+		};
+		000000000000000111000000 /* Debug configuration for PBXNativeTarget "Schritte-Apple Watch" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Schritte-Apple Watch/Schritte-Apple Watch.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TA5AHN6TPZ;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Schritte;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.siegmundmurer.schritte;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+			};
+			name = Debug;
+		};
+		000000000000000112000000 /* Release configuration for PBXNativeTarget "Schritte-Apple Watch" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Schritte-Apple Watch/Schritte-Apple Watch.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TA5AHN6TPZ;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Schritte;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.siegmundmurer.schritte;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+			};
+			name = Release;
+		};
+		6A38CCA530A4261D007EE4B4 /* Debug configuration for PBXNativeTarget "MyAppWatch Watch App" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "MyAppWatch Watch App/MyAppWatch Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TA5AHN6TPZ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Schritte;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Wir benötigen Zugriff auf deine Schrittdaten, um deine täglichen Schritte auf der Apple Watch anzuzeigen.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Wir benötigen Zugriff auf HealthKit, um deine Schritte zu synchronisieren.";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.siegmundmurer.schritte;
+				INFOPLIST_KEY_WKWatchOnly = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.siegmundmurer.schritte.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Debug;
+		};
+		6A38CCA630A4261D007EE4B4 /* Release configuration for PBXNativeTarget "MyAppWatch Watch App" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "MyAppWatch Watch App/MyAppWatch Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TA5AHN6TPZ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Schritte;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Wir benötigen Zugriff auf deine Schrittdaten, um deine täglichen Schritte auf der Apple Watch anzuzeigen.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Wir benötigen Zugriff auf HealthKit, um deine Schritte zu synchronisieren.";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.siegmundmurer.schritte;
+				INFOPLIST_KEY_WKWatchOnly = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.siegmundmurer.schritte.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6A38CCA930A4261D007EE4B4 /* Debug configuration for PBXNativeTarget "MyAppWatch" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TA5AHN6TPZ;
+				INFOPLIST_KEY_CFBundleDisplayName = MyAppWatch;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = devplaceholder.W6HIJ66C.MyApp.MyAppWatch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		6A38CCAA30A4261D007EE4B4 /* Release configuration for PBXNativeTarget "MyAppWatch" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TA5AHN6TPZ;
+				INFOPLIST_KEY_CFBundleDisplayName = MyAppWatch;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = devplaceholder.W6HIJ66C.MyApp.MyAppWatch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6A38CCC230A42626007EE4B4 /* Debug configuration for PBXNativeTarget "StepComplicationsExtension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = StepComplicationsExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TA5AHN6TPZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StepComplications/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Schritte;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.siegmundmurer.schritte.watchkitapp.StepComplications;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Debug;
+		};
+		6A38CCC330A42626007EE4B4 /* Release configuration for PBXNativeTarget "StepComplicationsExtension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = StepComplicationsExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TA5AHN6TPZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StepComplications/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Schritte;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.siegmundmurer.schritte.watchkitapp.StepComplications;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		000000000000000010000000 /* Build configuration list for PBXProject "Schritte-Apple Watch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				000000000000000011000000 /* Debug configuration for PBXProject "Schritte-Apple Watch" */,
+				000000000000000012000000 /* Release configuration for PBXProject "Schritte-Apple Watch" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		000000000000000110000000 /* Build configuration list for PBXNativeTarget "Schritte-Apple Watch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				000000000000000111000000 /* Debug configuration for PBXNativeTarget "Schritte-Apple Watch" */,
+				000000000000000112000000 /* Release configuration for PBXNativeTarget "Schritte-Apple Watch" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		6A38CCA430A4261D007EE4B4 /* Build configuration list for PBXNativeTarget "MyAppWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A38CCA530A4261D007EE4B4 /* Debug configuration for PBXNativeTarget "MyAppWatch Watch App" */,
+				6A38CCA630A4261D007EE4B4 /* Release configuration for PBXNativeTarget "MyAppWatch Watch App" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		6A38CCA830A4261D007EE4B4 /* Build configuration list for PBXNativeTarget "MyAppWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A38CCA930A4261D007EE4B4 /* Debug configuration for PBXNativeTarget "MyAppWatch" */,
+				6A38CCAA30A4261D007EE4B4 /* Release configuration for PBXNativeTarget "MyAppWatch" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		6A38CCC130A42626007EE4B4 /* Build configuration list for PBXNativeTarget "StepComplicationsExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A38CCC230A42626007EE4B4 /* Debug configuration for PBXNativeTarget "StepComplicationsExtension" */,
+				6A38CCC330A42626007EE4B4 /* Release configuration for PBXNativeTarget "StepComplicationsExtension" */,
+			);
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 000000000000000000000000 /* Project object */;
+}
