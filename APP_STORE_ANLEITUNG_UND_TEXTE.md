@@ -10,6 +10,7 @@ Dieses Dokument enthält **alle fertigen Texte, Einstellungen, Links und Schritt
    - [`docs/index.html`](file:///Users/siegmundmurer/Desktop/SCORM/Xcode/Schritte-Apple%20Watch/docs/index.html) – Offizielle Landing Page & Marketing-Website
    - [`docs/privacy.html`](file:///Users/siegmundmurer/Desktop/SCORM/Xcode/Schritte-Apple%20Watch/docs/privacy.html) – Vollständige Datenschutzerklärung (Pflicht für HealthKit!)
    - [`docs/support.html`](file:///Users/siegmundmurer/Desktop/SCORM/Xcode/Schritte-Apple%20Watch/docs/support.html) – Hilfe, FAQ und Support-Kontaktseite
+   - [`docs/imprint.html`](file:///Users/siegmundmurer/Desktop/SCORM/Xcode/Schritte-Apple%20Watch/docs/imprint.html) – Vollständiges Impressum nach aktuellem § 5 DDG & § 18 MStV
    - [`docs/styles.css`](file:///Users/siegmundmurer/Desktop/SCORM/Xcode/Schritte-Apple%20Watch/docs/styles.css) – Responsives Apple-Design mit Dark/Light Mode
 
 2. **Fertige App Store Screenshots** (exakte Pixelmaße nach Apple-Vorgaben):
@@ -40,6 +41,7 @@ Apple verlangt zwingend eine **Datenschutz-URL** und eine **Support-URL**. So ak
    - Landing Page: `https://victorymouth.github.io/schrittweise/`
    - Datenschutzerklärung: `https://victorymouth.github.io/schrittweise/privacy.html`
    - Support & FAQ: `https://victorymouth.github.io/schrittweise/support.html`
+   - Impressum: `https://victorymouth.github.io/schrittweise/imprint.html`
 
 *(Ersetze `<dein-github-username>` und `<repo-name>` durch deinen GitHub-Account und Repository-Namen).*
 
