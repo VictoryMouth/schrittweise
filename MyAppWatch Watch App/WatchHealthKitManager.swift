@@ -6,6 +6,8 @@ import WidgetKit
 @Observable
 @MainActor
 final class WatchHealthKitManager {
+    static let shared = WatchHealthKitManager()
+
     var todaySteps: Int = 0
     var stepGoal: Int = 10_000
     var todayDistanceKm: Double = 0.0
@@ -59,6 +61,7 @@ final class WatchHealthKitManager {
         do {
             try await healthStore.requestAuthorization(toShare: [], read: readTypes)
             self.isAuthorized = true
+            MotivationNotificationManager.shared.requestAuthorization()
             await fetchAllData()
             startObservingStepChanges()
         } catch {
@@ -88,6 +91,9 @@ final class WatchHealthKitManager {
             distanceKm: self.todayDistanceKm,
             calories: self.todayCalories
         )
+
+        // Motivations-Mitteilungen prüfen
+        MotivationNotificationManager.shared.checkAndNotify(steps: self.todaySteps, goal: self.stepGoal)
 
         // Komplikationen auf dem Zifferblatt sofort aktualisieren!
         WidgetCenter.shared.reloadAllTimelines()
@@ -142,7 +148,7 @@ final class WatchHealthKitManager {
         let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: Date(), options: .strictStartDate)
 
         return await withCheckedContinuation { continuation in
-            let query = HKStatisticsQuery(quantityType: calorieType, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, stats, _ in
+            let query = HKStatisticsQuery(quantityType:  calorieType, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, stats, _ in
                 let kcal = stats?.sumQuantity()?.doubleValue(for: .kilocalorie()) ?? 0
                 continuation.resume(returning: Int(kcal))
             }
@@ -150,17 +156,21 @@ final class WatchHealthKitManager {
         }
     }
 
-    private func startObservingStepChanges() {
+    func startObservingStepChanges() {
         guard let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount) else { return }
 
         if let existing = observerQuery {
             healthStore.stop(existing)
         }
 
-        let query = HKObserverQuery(sampleType: stepType, predicate: nil) { [weak self] _, _, error in
-            guard error == nil else { return }
+        let query = HKObserverQuery(sampleType: stepType, predicate: nil) { [weak self] _, completionHandler, error in
+            guard error == nil else {
+                completionHandler()
+                return
+            }
             Task { @MainActor in
                 await self?.fetchAllData()
+                completionHandler()
             }
         }
 
@@ -180,6 +190,10 @@ final class WatchHealthKitManager {
             distanceKm: self.todayDistanceKm,
             calories: self.todayCalories
         )
+
+        // Motivations-Mitteilungen prüfen
+        MotivationNotificationManager.shared.checkAndNotify(steps: self.todaySteps, goal: self.stepGoal)
+
         WidgetCenter.shared.reloadAllTimelines()
     }
 }

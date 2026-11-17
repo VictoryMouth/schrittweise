@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>Schritte</string>
+	<string>Schrittweise</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSExtension</key>

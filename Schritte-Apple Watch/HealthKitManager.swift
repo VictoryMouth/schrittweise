@@ -65,6 +65,7 @@ final class HealthKitManager {
             try await healthStore.requestAuthorization(toShare: [], read: readTypes)
             isAuthorized = true
             errorMessage = nil
+            MotivationNotificationManager.shared.requestAuthorization()
             await fetchAllData()
             startObservingStepChanges()
         } catch {
@@ -98,6 +99,9 @@ final class HealthKitManager {
             distanceKm: self.todayDistanceKm,
             calories: self.todayCalories
         )
+
+        // Motivations-Mitteilungen prüfen
+        MotivationNotificationManager.shared.checkAndNotify(steps: self.todaySteps, goal: self.stepGoal)
     }
 
     func updateGoal(_ newGoal: Int) {
@@ -162,28 +166,38 @@ final class HealthKitManager {
         guard let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount) else { return [] }
 
         let calendar = Calendar.current
-        var results: [DailyStepRecord] = []
+        let today = calendar.startOfDay(for: Date())
+        guard let startDate = calendar.date(byAdding: .day, value: -6, to: today) else { return [] }
 
-        for dayOffset in (0..<7).reversed() {
-            guard let date = calendar.date(byAdding: .day, value: -dayOffset, to: Date()) else { continue }
-            let dayStart = calendar.startOfDay(for: date)
-            guard let dayEnd = calendar.date(byAdding: .day, value: 1, to: dayStart) else { continue }
+        var interval = DateComponents()
+        interval.day = 1
 
-            let predicate = HKQuery.predicateForSamples(withStart: dayStart, end: dayEnd, options: .strictStartDate)
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictStartDate)
 
-            let stepsForDay: Int = await withCheckedContinuation { continuation in
-                let query = HKStatisticsQuery(quantityType: stepType, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, stats, _ in
-                    let count = stats?.sumQuantity()?.doubleValue(for: .count()) ?? 0
-                    continuation.resume(returning: Int(count))
+        return await withCheckedContinuation { continuation in
+            let query = HKStatisticsCollectionQuery(
+                quantityType: stepType,
+                quantitySamplePredicate: predicate,
+                options: .cumulativeSum,
+                anchorDate: startDate,
+                intervalComponents: interval
+            )
+
+            query.initialResultsHandler = { _, results, _ in
+                var records: [DailyStepRecord] = []
+                if let results = results {
+                    results.enumerateStatistics(from: startDate, to: Date()) { stats, _ in
+                        let count = stats.sumQuantity()?.doubleValue(for: .count()) ?? 0
+                        records.append(DailyStepRecord(date: stats.startDate, steps: Int(count)))
+                    }
                 }
-                healthStore.execute(query)
+                continuation.resume(returning: records)
             }
-
-            results.append(DailyStepRecord(date: dayStart, steps: stepsForDay))
+            healthStore.execute(query)
         }
-
-        return results
     }
+
+    // MARK: - Hintergrundüberwachung
 
     private func startObservingStepChanges() {
         guard let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount) else { return }
@@ -231,5 +245,8 @@ final class HealthKitManager {
             distanceKm: self.todayDistanceKm,
             calories: self.todayCalories
         )
+
+        // Motivations-Mitteilungen prüfen
+        MotivationNotificationManager.shared.checkAndNotify(steps: self.todaySteps, goal: self.stepGoal)
     }
 }

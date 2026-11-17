@@ -7,33 +7,29 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 24) {
-                    // Datum & Status
-                    headerView
-
-                    // Berechtigungs-Hinweis falls noch nicht autorisiert
-                    if !healthKit.isAuthorized {
-                        authorizationBanner
+                VStack(spacing: 20) {
+                    // Header Status
+                    if let errorMessage = healthKit.errorMessage {
+                        errorBanner(errorMessage)
                     }
 
-                    // Haupt-Fortschrittsring für Schritte
-                    progressRingCard
+                    // Haupt-Fortschritts-Ring
+                    progressHeroCard
 
-                    // Metriken (Distanz, Kalorien, Verbleibend)
+                    // Quick-Metrics Grid (Distanz, Kalorien, Fortschritt)
                     metricsGrid
 
-                    // Wochenübersicht (Balkendiagramm)
+                    // Wochen-Trend Balkendiagramm
                     weeklyChartView
 
-                    // Ziel-Einstellung & Simulator-Helfer
+                    // Schnell-Aktionen (Ziel anpassen, Aktualisieren, Testdaten)
                     actionsSection
                 }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 16)
+                .padding(.horizontal, 16)
+                .padding(.bottom, 24)
             }
             .background(Color(.systemGroupedBackground))
-            .navigationTitle("Schrittzähler")
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Schrittweise")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -43,15 +39,11 @@ struct ContentView: View {
                     } label: {
                         if healthKit.isLoading {
                             ProgressView()
-                                .controlSize(.small)
                         } else {
                             Image(systemName: "arrow.clockwise")
                         }
                     }
                 }
-            }
-            .refreshable {
-                await healthKit.fetchAllData()
             }
             .task {
                 await healthKit.requestAuthorization()
@@ -62,79 +54,35 @@ struct ContentView: View {
         }
     }
 
-    // MARK: - Header
-    private var headerView: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(Date().formatted(.dateTime.weekday(.wide).day().month(.wide)))
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                Text("Dein Tagesziel")
-                    .font(.title3.weight(.bold))
-            }
+    // MARK: - Error Banner
+    private func errorBanner(_ message: String) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .foregroundStyle(.yellow)
+            Text(message)
+                .font(.footnote)
+                .foregroundStyle(.secondary)
             Spacer()
-            Button {
-                showingGoalSheet = true
-            } label: {
-                Label("Ziel anpassen", systemImage: "pencil.circle.fill")
-                    .font(.subheadline.weight(.semibold))
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
-                    .background(Color.accentColor.opacity(0.12))
-                    .clipShape(Capsule())
-            }
         }
-    }
-
-    // MARK: - Authorization Banner
-    private var authorizationBanner: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack(spacing: 12) {
-                Image(systemName: "heart.text.square.fill")
-                    .font(.title)
-                    .foregroundStyle(.red)
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("Apple Health verbinden")
-                        .font(.headline)
-                    Text("Erlaube den Zugriff auf deine Schritte, um deine Daten synchron zu halten.")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
-
-            Button {
-                Task {
-                    await healthKit.requestAuthorization()
-                }
-            } label: {
-                Text("Zugriff in Health erlauben")
-                    .font(.subheadline.bold())
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
-                    .background(Color.accentColor)
-                    .foregroundStyle(.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-            }
-        }
-        .padding(16)
+        .padding(12)
         .background(Color(.secondarySystemGroupedBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
-    // MARK: - Progress Ring Card
-    private var progressRingCard: some View {
-        VStack(spacing: 20) {
+    // MARK: - Progress Hero Card
+    private var progressHeroCard: some View {
+        VStack(spacing: 16) {
             ZStack {
                 // Hintergrund-Ring
                 Circle()
-                    .stroke(Color.green.opacity(0.18), lineWidth: 22)
+                    .stroke(Color.green.opacity(0.15), lineWidth: 22)
 
-                // Vordergrund-Ring
+                // Dynamischer Fortschritts-Ring
                 Circle()
                     .trim(from: 0, to: CGFloat(healthKit.progressPercentage))
                     .stroke(
                         AngularGradient(
-                            gradient: Gradient(colors: [.green, .mint, .cyan]),
+                            gradient: Gradient(colors: [.green, .mint, .cyan, .green]),
                             center: .center,
                             startAngle: .degrees(-90),
                             endAngle: .degrees(270)
@@ -142,10 +90,10 @@ struct ContentView: View {
                         style: StrokeStyle(lineWidth: 22, lineCap: .round)
                     )
                     .rotationEffect(.degrees(-90))
-                    .animation(.spring(response: 0.8, dampingFraction: 0.7), value: healthKit.todaySteps)
+                    .animation(.spring(response: 0.8, dampingFraction: 0.75), value: healthKit.todaySteps)
 
-                // Zentraler Text
-                VStack(spacing: 6) {
+                // Innere Text-Statistiken
+                VStack(spacing: 4) {
                     Image(systemName: "figure.walk")
                         .font(.title2.bold())
                         .foregroundStyle(.green)
@@ -248,45 +196,50 @@ struct ContentView: View {
                     VStack(spacing: 6) {
                         let maxHeight: CGFloat = 110
                         let highest = max(healthKit.stepGoal, healthKit.weeklySteps.map(\.steps).max() ?? 1)
-                        let barHeight = highest > 0 ? (CGFloat(day.steps) / CGFloat(highest)) * maxHeight : 4
+                        let barHeight = CGFloat(day.steps) / CGFloat(highest) * maxHeight
+                        let isGoalMet = day.steps >= healthKit.stepGoal
 
                         ZStack(alignment: .bottom) {
                             Capsule()
-                                .fill(Color.secondary.opacity(0.12))
+                                .fill(Color(.tertiarySystemFill))
                                 .frame(height: maxHeight)
 
                             Capsule()
-                                .fill(
-                                    day.steps >= healthKit.stepGoal
-                                    ? AnyShapeStyle(Color.green)
-                                    : AnyShapeStyle(Color.accentColor)
-                                )
+                                .fill(isGoalMet ? Color.green : Color.blue.opacity(0.8))
                                 .frame(height: max(6, barHeight))
                         }
-                        .frame(width: 22)
 
                         Text(day.dayName)
                             .font(.caption2.bold())
-                            .foregroundStyle(.secondary)
-
-                        Text("\(day.steps >= 1000 ? "\(day.steps / 1000)k" : "\(day.steps)")")
-                            .font(.system(size: 9))
                             .foregroundStyle(.secondary)
                     }
                     .frame(maxWidth: .infinity)
                 }
             }
-            .frame(height: 160)
-            .padding(.top, 4)
+            .frame(height: 140)
+            .padding(.top, 8)
         }
-        .padding(16)
+        .padding(18)
         .background(Color(.secondarySystemGroupedBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .clipShape(RoundedRectangle(cornerRadius: 18))
     }
 
-    // MARK: - Actions / Simulator Helpers
+    // MARK: - Actions Section
     private var actionsSection: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 10) {
+            Button {
+                showingGoalSheet = true
+            } label: {
+                Label("Tagesziel ändern & Einstellungen", systemImage: "target")
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 14)
+                    .background(Color.green)
+                    .foregroundStyle(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+            }
+
+            #if DEBUG
             Button {
                 healthKit.simulateSteps(count: 1000)
             } label: {
@@ -298,6 +251,7 @@ struct ContentView: View {
                     .foregroundStyle(.secondary)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
             }
+            #endif
         }
     }
 }
@@ -307,50 +261,67 @@ struct GoalSettingSheet: View {
     @Bindable var healthKit: HealthKitManager
     @Environment(\.dismiss) private var dismiss
     @State private var selectedGoal: Int = 10_000
+    @State private var notificationsEnabled: Bool = true
 
     private let presets = [5_000, 8_000, 10_000, 12_000, 15_000, 20_000]
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 24) {
-                VStack(spacing: 8) {
-                    Text("\(selectedGoal.formatted()) Schritte")
-                        .font(.system(size: 38, weight: .bold, design: .rounded))
-                        .foregroundStyle(.green)
-                    Text("Tägliches Schrittziel")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                }
-                .padding(.top, 20)
+            ScrollView {
+                VStack(spacing: 20) {
+                    VStack(spacing: 8) {
+                        Text("\(selectedGoal.formatted()) Schritte")
+                            .font(.system(size: 38, weight: .bold, design: .rounded))
+                            .foregroundStyle(.green)
+                        Text("Tägliches Schrittziel")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
+                    .padding(.top, 10)
 
-                // Presets
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 10) {
-                    ForEach(presets, id: \.self) { preset in
-                        Button {
-                            selectedGoal = preset
-                        } label: {
-                            Text(preset.formatted())
-                                .font(.subheadline.weight(.semibold))
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 10)
-                                .background(selectedGoal == preset ? Color.green : Color(.tertiarySystemGroupedBackground))
-                                .foregroundStyle(selectedGoal == preset ? .white : .primary)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                    // Presets
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 10) {
+                        ForEach(presets, id: \.self) { preset in
+                            Button {
+                                selectedGoal = preset
+                            } label: {
+                                Text(preset.formatted())
+                                    .font(.subheadline.weight(.semibold))
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 10)
+                                    .background(selectedGoal == preset ? Color.green : Color(.tertiarySystemGroupedBackground))
+                                    .foregroundStyle(selectedGoal == preset ? .white : .primary)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                            }
                         }
                     }
-                }
 
-                Stepper(value: $selectedGoal, in: 1_000...50_000, step: 500) {
-                    Text("Feinjustierung: ±500 Schritte")
-                        .font(.subheadline)
-                }
-                .padding()
-                .background(Color(.secondarySystemGroupedBackground))
-                .clipShape(RoundedRectangle(cornerRadius: 12))
+                    Stepper(value: $selectedGoal, in: 1_000...50_000, step: 500) {
+                        Text("Feinjustierung: ±500 Schritte")
+                            .font(.subheadline)
+                    }
+                    .padding()
+                    .background(Color(.secondarySystemGroupedBackground))
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
 
-                Spacer()
+                    Toggle(isOn: $notificationsEnabled) {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Motivations-Mitteilungen")
+                                .font(.body)
+                            Text("Bei 25%, 50%, 75%, 90% und 100% des Tagesziels")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    .tint(.green)
+                    .padding()
+                    .background(Color(.secondarySystemGroupedBackground))
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+
+                    Spacer()
+                }
+                .padding(20)
             }
-            .padding(20)
             .background(Color(.systemGroupedBackground))
             .navigationTitle("Tagesziel festlegen")
             .navigationBarTitleDisplayMode(.inline)
@@ -361,6 +332,10 @@ struct GoalSettingSheet: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Speichern") {
                         healthKit.updateGoal(selectedGoal)
+                        MotivationNotificationManager.shared.isEnabled = notificationsEnabled
+                        if notificationsEnabled {
+                            MotivationNotificationManager.shared.requestAuthorization()
+                        }
                         dismiss()
                     }
                     .bold()
@@ -368,9 +343,10 @@ struct GoalSettingSheet: View {
             }
             .onAppear {
                 selectedGoal = healthKit.stepGoal
+                notificationsEnabled = MotivationNotificationManager.shared.isEnabled
             }
         }
-        .presentationDetents([.medium])
+        .presentationDetents([.medium, .large])
     }
 }
 

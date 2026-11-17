@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct MyAppWatch_Watch_AppApp: App {
+    @WKApplicationDelegateAdaptor(ExtensionDelegate.self) var extensionDelegate
+
     var body: some Scene {
         WindowGroup {
             ContentView()

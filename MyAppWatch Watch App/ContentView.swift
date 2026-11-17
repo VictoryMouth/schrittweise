@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var healthKit = WatchHealthKitManager()
+    @State private var healthKit = WatchHealthKitManager.shared
     @State private var showingGoalSheet = false
 
     var body: some View {
@@ -98,6 +98,7 @@ struct ContentView: View {
                                 .font(.system(size: 13))
                         }
 
+                        #if DEBUG
                         Button {
                             healthKit.simulateSteps(count: 500)
                         } label: {
@@ -105,12 +106,13 @@ struct ContentView: View {
                                 .font(.system(size: 12))
                                 .foregroundStyle(.secondary)
                         }
+                        #endif
                     }
                     .padding(.top, 4)
                 }
                 .padding(.horizontal)
             }
-            .navigationTitle("Schritte")
+            .navigationTitle("Schrittweise")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -142,28 +144,40 @@ struct WatchGoalSheet: View {
     @Bindable var healthKit: WatchHealthKitManager
     @Environment(\.dismiss) private var dismiss
     @State private var goal: Double = 10_000
+    @State private var notificationsEnabled: Bool = true
 
     var body: some View {
-        VStack(spacing: 12) {
-            Text("Tagesziel")
-                .font(.headline)
+        ScrollView {
+            VStack(spacing: 12) {
+                Text("Tagesziel")
+                    .font(.headline)
 
-            Text("\(Int(goal).formatted())")
-                .font(.system(size: 26, weight: .bold, design: .rounded))
-                .foregroundStyle(.green)
+                Text("\(Int(goal).formatted())")
+                    .font(.system(size: 26, weight: .bold, design: .rounded))
+                    .foregroundStyle(.green)
 
-            Slider(value: $goal, in: 2_000...30_000, step: 1_000)
+                Slider(value: $goal, in: 2_000...30_000, step: 1_000)
+                    .tint(.green)
+
+                Toggle("Motivation (25%, 50%, 75%, 90%)", isOn: $notificationsEnabled)
+                    .font(.footnote)
+                    .tint(.green)
+
+                Button("Speichern") {
+                    healthKit.updateGoal(Int(goal))
+                    MotivationNotificationManager.shared.isEnabled = notificationsEnabled
+                    if notificationsEnabled {
+                        MotivationNotificationManager.shared.requestAuthorization()
+                    }
+                    dismiss()
+                }
                 .tint(.green)
-
-            Button("Speichern") {
-                healthKit.updateGoal(Int(goal))
-                dismiss()
             }
-            .tint(.green)
+            .padding()
         }
-        .padding()
         .onAppear {
             goal = Double(healthKit.stepGoal)
+            notificationsEnabled = MotivationNotificationManager.shared.isEnabled
         }
     }
 }

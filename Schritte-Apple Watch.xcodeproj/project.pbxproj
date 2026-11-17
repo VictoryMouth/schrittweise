@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6A38CC9730A4261C007EE4B4 /* MyAppWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 6A38CC9630A4261C007EE4B4 /* MyAppWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		6A38CCA330A4261D007EE4B4 /* MyAppWatch.app in Resources */ = {isa = PBXBuildFile; fileRef = 6A38CC9130A4261C007EE4B4 /* MyAppWatch.app */; };
 		6A38CCB230A42625007EE4B4 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A38CCB130A42625007EE4B4 /* WidgetKit.framework */; };
 		6A38CCB430A42625007EE4B4 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A38CCB330A42625007EE4B4 /* SwiftUI.framework */; };
 		6A38CCBF30A42626007EE4B4 /* StepComplicationsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6A38CCAF30A42625007EE4B4 /* StepComplicationsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -21,13 +20,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 6A38CC9530A4261C007EE4B4;
 			remoteInfo = "MyAppWatch Watch App";
-		};
-		6A38CCA130A4261D007EE4B4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 000000000000000000000000 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6A38CC9030A4261C007EE4B4;
-			remoteInfo = MyAppWatch;
 		};
 		6A38CCBD30A42626007EE4B4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -163,11 +155,12 @@
 				000000000000000120000000 /* Sources */,
 				000000000000000130000000 /* Frameworks */,
 				000000000000000140000000 /* Resources */,
+				6A38CCA730A4261D007EE4B4 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				6A38CCA230A4261D007EE4B4 /* PBXTargetDependency */,
+				6A38CC9930A4261C007EE4B4 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				000000000000000000000010 /* Schritte-Apple Watch */,
@@ -182,7 +175,6 @@
 			buildConfigurationList = 6A38CCA830A4261D007EE4B4 /* Build configuration list for PBXNativeTarget "MyAppWatch" */;
 			buildPhases = (
 				6A38CC8F30A4261C007EE4B4 /* Resources */,
-				6A38CCA730A4261D007EE4B4 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
@@ -284,7 +276,6 @@
 		000000000000000140000000 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
-				6A38CCA330A4261D007EE4B4 /* MyAppWatch.app in Resources */,
 			);
 		};
 		6A38CC8F30A4261C007EE4B4 /* Resources */ = {
@@ -327,11 +318,6 @@
 			isa = PBXTargetDependency;
 			target = 6A38CC9530A4261C007EE4B4 /* MyAppWatch Watch App */;
 			targetProxy = 6A38CC9830A4261C007EE4B4 /* PBXContainerItemProxy */;
-		};
-		6A38CCA230A4261D007EE4B4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6A38CC9030A4261C007EE4B4 /* MyAppWatch */;
-			targetProxy = 6A38CCA130A4261D007EE4B4 /* PBXContainerItemProxy */;
 		};
 		6A38CCBE30A42626007EE4B4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -476,16 +462,20 @@
 		000000000000000111000000 /* Debug configuration for PBXNativeTarget "Schritte-Apple Watch" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Schritte-Apple Watch/Schritte-Apple Watch.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TA5AHN6TPZ;
-				ENABLE_APP_SANDBOX = YES;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Schritte;
+				INFOPLIST_KEY_CFBundleDisplayName = Schrittweise;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Wir benötigen Zugriff auf deine Schrittdaten, um deine täglichen Schritte und Aktivitäten anzuzeigen.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Wir benötigen Zugriff auf HealthKit, um deine Schritte zu synchronisieren.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -517,16 +507,20 @@
 		000000000000000112000000 /* Release configuration for PBXNativeTarget "Schritte-Apple Watch" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Schritte-Apple Watch/Schritte-Apple Watch.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TA5AHN6TPZ;
-				ENABLE_APP_SANDBOX = YES;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Schritte;
+				INFOPLIST_KEY_CFBundleDisplayName = Schrittweise;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Wir benötigen Zugriff auf deine Schrittdaten, um deine täglichen Schritte und Aktivitäten anzuzeigen.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Wir benötigen Zugriff auf HealthKit, um deine Schritte zu synchronisieren.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -566,7 +560,7 @@
 				DEVELOPMENT_TEAM = TA5AHN6TPZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Schritte;
+				INFOPLIST_KEY_CFBundleDisplayName = Schrittweise;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Wir benötigen Zugriff auf deine Schrittdaten, um deine täglichen Schritte auf der Apple Watch anzuzeigen.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Wir benötigen Zugriff auf HealthKit, um deine Schritte zu synchronisieren.";
@@ -604,7 +598,7 @@
 				DEVELOPMENT_TEAM = TA5AHN6TPZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Schritte;
+				INFOPLIST_KEY_CFBundleDisplayName = Schrittweise;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Wir benötigen Zugriff auf deine Schrittdaten, um deine täglichen Schritte auf der Apple Watch anzuzeigen.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Wir benötigen Zugriff auf HealthKit, um deine Schritte zu synchronisieren.";
@@ -643,6 +637,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = devplaceholder.W6HIJ66C.MyApp.MyAppWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
@@ -660,6 +655,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = devplaceholder.W6HIJ66C.MyApp.MyAppWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
@@ -678,7 +674,8 @@
 				DEVELOPMENT_TEAM = TA5AHN6TPZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StepComplications/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Schritte;
+				INFOPLIST_KEY_CFBundleDisplayName = Schrittweise;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -712,7 +709,8 @@
 				DEVELOPMENT_TEAM = TA5AHN6TPZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StepComplications/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Schritte;
+				INFOPLIST_KEY_CFBundleDisplayName = Schrittweise;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

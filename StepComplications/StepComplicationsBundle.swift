@@ -12,5 +12,7 @@ import SwiftUI
 struct StepComplicationsBundle: WidgetBundle {
     var body: some Widget {
         StepComplications()
+        BigNumberStepWidget()
+        RemainingStepsWidget()
     }
 }
