@@ -42,7 +42,7 @@ struct StatusBarView: View {
             .foregroundColor(.white)
         }
         .padding(.horizontal, 24)
-        .padding(.top, 12)
+        .padding(.top, 14)
         .padding(.bottom, 6)
     }
 }
@@ -69,134 +69,134 @@ struct IPhoneScreen1View: View {
             .padding(.top, 12)
             .padding(.bottom, 16)
             
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 20) {
-                    // Haupt-Fortschritts-Ring Hero Card
-                    VStack(spacing: 16) {
-                        ZStack {
-                            // Hintergrund-Ring
-                            Circle()
-                                .stroke(appGreen.opacity(0.15), lineWidth: 24)
-                            
-                            // Fortschritts-Ring mit Farbverlauf
-                            Circle()
-                                .trim(from: 0, to: 0.754)
-                                .stroke(
-                                    AngularGradient(
-                                        gradient: Gradient(colors: [appGreen, appMint, appCyan, appGreen]),
-                                        center: .center,
-                                        startAngle: .degrees(-90),
-                                        endAngle: .degrees(270)
-                                    ),
-                                    style: StrokeStyle(lineWidth: 24, lineCap: .round)
-                                )
-                                .rotationEffect(.degrees(-90))
-                            
-                            // Innere Daten
-                            VStack(spacing: 4) {
-                                Image(systemName: "figure.walk")
-                                    .font(.system(size: 28, weight: .bold))
-                                    .foregroundColor(appGreen)
-                                
-                                Text("7.542")
-                                    .font(.system(size: 44, weight: .heavy, design: .rounded))
-                                    .foregroundColor(.white)
-                                
-                                Text("von 10.000")
-                                    .font(.system(size: 15, weight: .medium))
-                                    .foregroundColor(.gray)
-                                
-                                Text("75%")
-                                    .font(.system(size: 13, weight: .bold))
-                                    .foregroundColor(appGreen)
-                                    .padding(.horizontal, 12)
-                                    .padding(.vertical, 4)
-                                    .background(Capsule().fill(appGreen.opacity(0.2)))
-                            }
-                        }
-                        .frame(width: 230, height: 230)
-                        .padding(.vertical, 10)
+            VStack(spacing: 18) {
+                // Haupt-Fortschritts-Ring Hero Card
+                VStack(spacing: 16) {
+                    ZStack {
+                        // Hintergrund-Ring
+                        Circle()
+                            .stroke(appGreen.opacity(0.15), lineWidth: 24)
                         
-                        // Fehlende Schritte Leiste
-                        HStack {
-                            Image(systemName: "flag.fill")
-                                .foregroundColor(appGreen)
-                                .font(.system(size: 13))
-                            Text("Noch **2.458 Schritte** bis zum Tagesziel")
-                                .font(.system(size: 14))
-                                .foregroundColor(.white)
-                        }
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 10)
-                        .background(RoundedRectangle(cornerRadius: 12).fill(Color.white.opacity(0.06)))
-                    }
-                    .padding(20)
-                    .background(RoundedRectangle(cornerRadius: 24).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 24).stroke(cardBorder, lineWidth: 1)))
-                    
-                    // Metriken-Grid (Distanz & Kalorien)
-                    HStack(spacing: 14) {
-                        // Distanz Card
-                        VStack(alignment: .leading, spacing: 8) {
-                            HStack {
-                                Image(systemName: "figure.walk.motion")
-                                    .foregroundColor(appCyan)
-                                    .font(.system(size: 16))
-                                Spacer()
-                                Text("Distanz")
-                                    .font(.system(size: 12, weight: .medium))
-                                    .foregroundColor(.gray)
-                            }
-                            Text("5,8 km")
-                                .font(.system(size: 24, weight: .bold, design: .rounded))
-                                .foregroundColor(.white)
-                            Text("Heute zurückgelegt")
-                                .font(.system(size: 11))
-                                .foregroundColor(.gray.opacity(0.8))
-                        }
-                        .padding(16)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(RoundedRectangle(cornerRadius: 18).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 18).stroke(cardBorder, lineWidth: 1)))
+                        // Fortschritts-Ring mit Farbverlauf
+                        Circle()
+                            .trim(from: 0, to: 0.754)
+                            .stroke(
+                                AngularGradient(
+                                    gradient: Gradient(colors: [appGreen, appMint, appCyan, appGreen]),
+                                    center: .center,
+                                    startAngle: .degrees(-90),
+                                    endAngle: .degrees(270)
+                                ),
+                                style: StrokeStyle(lineWidth: 24, lineCap: .round)
+                            )
+                            .rotationEffect(.degrees(-90))
                         
-                        // Kalorien Card
-                        VStack(alignment: .leading, spacing: 8) {
-                            HStack {
-                                Image(systemName: "flame.fill")
-                                    .foregroundColor(appOrange)
-                                    .font(.system(size: 16))
-                                Spacer()
-                                Text("Kalorien")
-                                    .font(.system(size: 12, weight: .medium))
-                                    .foregroundColor(.gray)
-                            }
-                            Text("418 kcal")
-                                .font(.system(size: 24, weight: .bold, design: .rounded))
-                                .foregroundColor(.white)
-                            Text("Aktiv verbrannt")
-                                .font(.system(size: 11))
-                                .foregroundColor(.gray.opacity(0.8))
-                        }
-                        .padding(16)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(RoundedRectangle(cornerRadius: 18).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 18).stroke(cardBorder, lineWidth: 1)))
-                    }
-                    
-                    // Schnell-Aktionen
-                    HStack(spacing: 12) {
-                        HStack {
-                            Image(systemName: "target")
+                        // Innere Daten
+                        VStack(spacing: 4) {
+                            Image(systemName: "figure.walk")
+                                .font(.system(size: 28, weight: .bold))
                                 .foregroundColor(appGreen)
-                            Text("Tagesziel anpassen")
-                                .font(.system(size: 15, weight: .semibold))
+                            
+                            Text("7.542")
+                                .font(.system(size: 44, weight: .heavy, design: .rounded))
                                 .foregroundColor(.white)
+                            
+                            Text("von 10.000")
+                                .font(.system(size: 15, weight: .medium))
+                                .foregroundColor(.gray)
+                            
+                            Text("75%")
+                                .font(.system(size: 13, weight: .bold))
+                                .foregroundColor(appGreen)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 4)
+                                .background(Capsule().fill(appGreen.opacity(0.2)))
                         }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(RoundedRectangle(cornerRadius: 16).fill(Color.white.opacity(0.08)))
                     }
+                    .frame(width: 230, height: 230)
+                    .padding(.vertical, 10)
+                    
+                    // Fehlende Schritte Leiste
+                    HStack {
+                        Image(systemName: "flag.fill")
+                            .foregroundColor(appGreen)
+                            .font(.system(size: 13))
+                        Text("Noch **2.458 Schritte** bis zum Tagesziel")
+                            .font(.system(size: 14))
+                            .foregroundColor(.white)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
+                    .background(RoundedRectangle(cornerRadius: 12).fill(Color.white.opacity(0.06)))
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 30)
+                .padding(20)
+                .background(RoundedRectangle(cornerRadius: 24).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 24).stroke(cardBorder, lineWidth: 1)))
+                
+                // Metriken-Grid (Distanz & Kalorien)
+                HStack(spacing: 14) {
+                    // Distanz Card
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Image(systemName: "figure.walk.motion")
+                                .foregroundColor(appCyan)
+                                .font(.system(size: 16))
+                            Spacer()
+                            Text("Distanz")
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundColor(.gray)
+                        }
+                        Text("5,8 km")
+                            .font(.system(size: 24, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                        Text("Heute zurückgelegt")
+                            .font(.system(size: 11))
+                            .foregroundColor(.gray.opacity(0.8))
+                    }
+                    .padding(16)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(RoundedRectangle(cornerRadius: 18).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 18).stroke(cardBorder, lineWidth: 1)))
+                    
+                    // Kalorien Card
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Image(systemName: "flame.fill")
+                                .foregroundColor(appOrange)
+                                .font(.system(size: 16))
+                            Spacer()
+                            Text("Kalorien")
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundColor(.gray)
+                        }
+                        Text("418 kcal")
+                            .font(.system(size: 24, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                        Text("Aktiv verbrannt")
+                            .font(.system(size: 11))
+                            .foregroundColor(.gray.opacity(0.8))
+                    }
+                    .padding(16)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(RoundedRectangle(cornerRadius: 18).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 18).stroke(cardBorder, lineWidth: 1)))
+                }
+                
+                // Schnell-Aktionen
+                HStack(spacing: 12) {
+                    HStack {
+                        Image(systemName: "target")
+                            .foregroundColor(appGreen)
+                        Text("Tagesziel anpassen")
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundColor(.white)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 14)
+                    .background(RoundedRectangle(cornerRadius: 16).fill(Color.white.opacity(0.08)))
+                }
+                
+                Spacer()
             }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 20)
         }
         .frame(width: 430, height: 932)
         .background(bgBlack)
@@ -236,134 +236,134 @@ struct IPhoneScreen2View: View {
             .padding(.top, 12)
             .padding(.bottom, 16)
             
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 20) {
-                    // Haupt-Diagramm Card
-                    VStack(alignment: .leading, spacing: 18) {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("DURCHSCHNITT")
-                                    .font(.system(size: 11, weight: .bold))
-                                    .foregroundColor(.gray)
-                                Text("9.571")
-                                    .font(.system(size: 32, weight: .heavy, design: .rounded))
-                                    .foregroundColor(.white)
-                                Text("Schritte pro Tag")
-                                    .font(.system(size: 13))
-                                    .foregroundColor(appGreen)
-                            }
-                            Spacer()
-                            VStack(alignment: .trailing, spacing: 4) {
-                                Text("ZIELQUOTE")
-                                    .font(.system(size: 11, weight: .bold))
-                                    .foregroundColor(.gray)
-                                Text("3 / 7")
-                                    .font(.system(size: 28, weight: .bold, design: .rounded))
-                                    .foregroundColor(appYellow)
-                                Text("Tage erreicht")
-                                    .font(.system(size: 13))
-                                    .foregroundColor(.gray)
-                            }
-                        }
-                        
-                        Divider().background(Color.white.opacity(0.1))
-                        
-                        // Balkendiagramm
-                        HStack(alignment: .bottom, spacing: 14) {
-                            ForEach(weekDays, id: \.day) { item in
-                                VStack(spacing: 8) {
-                                    ZStack(alignment: .bottom) {
-                                        // Hintergrund-Säule
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .fill(Color.white.opacity(0.06))
-                                            .frame(width: 38, height: 160)
-                                        
-                                        // Aktiver Fortschrittsbalken
-                                        let barH = CGFloat(item.steps) / 13000.0 * 160.0
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .fill(
-                                                item.reached
-                                                ? LinearGradient(colors: [appGreen, appMint], startPoint: .top, endPoint: .bottom)
-                                                : LinearGradient(colors: [appCyan.opacity(0.8), appCyan.opacity(0.4)], startPoint: .top, endPoint: .bottom)
-                                            )
-                                            .frame(width: 38, height: min(160, max(20, barH)))
-                                            .overlay(
-                                                item.reached
-                                                ? Image(systemName: "star.fill")
-                                                    .font(.system(size: 10))
-                                                    .foregroundColor(.black)
-                                                    .padding(.top, 6)
-                                                : nil,
-                                                alignment: .top
-                                            )
-                                    }
-                                    
-                                    Text(item.day)
-                                        .font(.system(size: 13, weight: item.day == "So" ? .bold : .medium))
-                                        .foregroundColor(item.day == "So" ? appGreen : .gray)
-                                }
-                            }
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 8)
-                        
-                        // Ziellinie Legende
-                        HStack(spacing: 8) {
-                            Circle().fill(appGreen).frame(width: 8, height: 8)
-                            Text("Ziel erreicht (10.000+)")
-                                .font(.system(size: 12))
+            VStack(spacing: 18) {
+                // Haupt-Diagramm Card
+                VStack(alignment: .leading, spacing: 18) {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("DURCHSCHNITT")
+                                .font(.system(size: 11, weight: .bold))
                                 .foregroundColor(.gray)
-                            Spacer()
-                            Circle().fill(appCyan).frame(width: 8, height: 8)
-                            Text("Aktiv")
-                                .font(.system(size: 12))
-                                .foregroundColor(.gray)
-                        }
-                    }
-                    .padding(20)
-                    .background(RoundedRectangle(cornerRadius: 24).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 24).stroke(cardBorder, lineWidth: 1)))
-                    
-                    // Gesamt-Statistiken
-                    VStack(spacing: 12) {
-                        HStack {
-                            Text("Wochen-Zusammenfassung")
-                                .font(.system(size: 16, weight: .bold))
+                            Text("9.571")
+                                .font(.system(size: 32, weight: .heavy, design: .rounded))
                                 .foregroundColor(.white)
-                            Spacer()
+                            Text("Schritte pro Tag")
+                                .font(.system(size: 13))
+                                .foregroundColor(appGreen)
                         }
-                        
-                        HStack(spacing: 12) {
-                            VStack(alignment: .leading, spacing: 6) {
-                                Text("GESAMTSCHRITTE")
-                                    .font(.system(size: 11, weight: .semibold))
-                                    .foregroundColor(.gray)
-                                Text("67.002")
-                                    .font(.system(size: 22, weight: .bold, design: .rounded))
-                                    .foregroundColor(.white)
-                            }
-                            .padding(16)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(RoundedRectangle(cornerRadius: 16).fill(Color.white.opacity(0.05)))
-                            
-                            VStack(alignment: .leading, spacing: 6) {
-                                Text("GESAMTDISTANZ")
-                                    .font(.system(size: 11, weight: .semibold))
-                                    .foregroundColor(.gray)
-                                Text("51,2 km")
-                                    .font(.system(size: 22, weight: .bold, design: .rounded))
-                                    .foregroundColor(appCyan)
-                            }
-                            .padding(16)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(RoundedRectangle(cornerRadius: 16).fill(Color.white.opacity(0.05)))
+                        Spacer()
+                        VStack(alignment: .trailing, spacing: 4) {
+                            Text("ZIELQUOTE")
+                                .font(.system(size: 11, weight: .bold))
+                                .foregroundColor(.gray)
+                            Text("3 / 7")
+                                .font(.system(size: 28, weight: .bold, design: .rounded))
+                                .foregroundColor(appYellow)
+                            Text("Tage erreicht")
+                                .font(.system(size: 13))
+                                .foregroundColor(.gray)
                         }
                     }
-                    .padding(20)
-                    .background(RoundedRectangle(cornerRadius: 24).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 24).stroke(cardBorder, lineWidth: 1)))
+                    
+                    Divider().background(Color.white.opacity(0.1))
+                    
+                    // Balkendiagramm
+                    HStack(alignment: .bottom, spacing: 14) {
+                        ForEach(weekDays, id: \.day) { item in
+                            VStack(spacing: 8) {
+                                ZStack(alignment: .bottom) {
+                                    // Hintergrund-Säule
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color.white.opacity(0.06))
+                                        .frame(width: 38, height: 160)
+                                    
+                                    // Aktiver Fortschrittsbalken
+                                    let barH = CGFloat(item.steps) / 13000.0 * 160.0
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(
+                                            item.reached
+                                            ? LinearGradient(colors: [appGreen, appMint], startPoint: .top, endPoint: .bottom)
+                                            : LinearGradient(colors: [appCyan.opacity(0.8), appCyan.opacity(0.4)], startPoint: .top, endPoint: .bottom)
+                                        )
+                                        .frame(width: 38, height: min(160, max(20, barH)))
+                                        .overlay(
+                                            item.reached
+                                            ? Image(systemName: "star.fill")
+                                                .font(.system(size: 10))
+                                                .foregroundColor(.black)
+                                                .padding(.top, 6)
+                                            : nil,
+                                            alignment: .top
+                                        )
+                                }
+                                
+                                Text(item.day)
+                                    .font(.system(size: 13, weight: item.day == "So" ? .bold : .medium))
+                                    .foregroundColor(item.day == "So" ? appGreen : .gray)
+                            }
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 8)
+                    
+                    // Ziellinie Legende
+                    HStack(spacing: 8) {
+                        Circle().fill(appGreen).frame(width: 8, height: 8)
+                        Text("Ziel erreicht (10.000+)")
+                            .font(.system(size: 12))
+                            .foregroundColor(.gray)
+                        Spacer()
+                        Circle().fill(appCyan).frame(width: 8, height: 8)
+                        Text("Aktiv")
+                            .font(.system(size: 12))
+                            .foregroundColor(.gray)
+                    }
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 30)
+                .padding(20)
+                .background(RoundedRectangle(cornerRadius: 24).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 24).stroke(cardBorder, lineWidth: 1)))
+                
+                // Gesamt-Statistiken
+                VStack(spacing: 12) {
+                    HStack {
+                        Text("Wochen-Zusammenfassung")
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundColor(.white)
+                        Spacer()
+                    }
+                    
+                    HStack(spacing: 12) {
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text("GESAMTSCHRITTE")
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundColor(.gray)
+                            Text("67.002")
+                                .font(.system(size: 22, weight: .bold, design: .rounded))
+                                .foregroundColor(.white)
+                        }
+                        .padding(16)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(RoundedRectangle(cornerRadius: 16).fill(Color.white.opacity(0.05)))
+                        
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text("GESAMTDISTANZ")
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundColor(.gray)
+                            Text("51,2 km")
+                                .font(.system(size: 22, weight: .bold, design: .rounded))
+                                .foregroundColor(appCyan)
+                        }
+                        .padding(16)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(RoundedRectangle(cornerRadius: 16).fill(Color.white.opacity(0.05)))
+                    }
+                }
+                .padding(20)
+                .background(RoundedRectangle(cornerRadius: 24).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 24).stroke(cardBorder, lineWidth: 1)))
+                
+                Spacer()
             }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 20)
         }
         .frame(width: 430, height: 932)
         .background(bgBlack)
@@ -389,126 +389,126 @@ struct IPhoneScreen3View: View {
             .padding(.top, 12)
             .padding(.bottom, 16)
             
-            ScrollView(showsIndicators: false) {
+            VStack(spacing: 18) {
+                // Sheet-Like Card: Ziel einstellen
                 VStack(spacing: 20) {
-                    // Sheet-Like Card: Ziel einstellen
-                    VStack(spacing: 20) {
-                        VStack(spacing: 6) {
-                            Text("TÄGLICHES SCHRITTZIEL")
-                                .font(.system(size: 12, weight: .bold))
-                                .foregroundColor(.gray)
-                            
-                            Text("10.000")
-                                .font(.system(size: 50, weight: .heavy, design: .rounded))
-                                .foregroundColor(appGreen)
-                            
-                            Text("Schritte jeden Tag")
-                                .font(.system(size: 15))
-                                .foregroundColor(.gray)
-                        }
-                        .padding(.top, 10)
+                    VStack(spacing: 6) {
+                        Text("TÄGLICHES SCHRITTZIEL")
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundColor(.gray)
                         
-                        // Stepper Buttons
-                        HStack(spacing: 24) {
-                            HStack {
-                                Image(systemName: "minus")
-                                Text("500")
-                            }
-                            .font(.system(size: 16, weight: .bold))
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 12)
-                            .background(RoundedRectangle(cornerRadius: 14).fill(Color.white.opacity(0.1)))
-                            
-                            HStack {
-                                Image(systemName: "plus")
-                                Text("500")
-                            }
-                            .font(.system(size: 16, weight: .bold))
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 12)
-                            .background(RoundedRectangle(cornerRadius: 14).fill(Color.white.opacity(0.1)))
-                        }
+                        Text("10.000")
+                            .font(.system(size: 50, weight: .heavy, design: .rounded))
+                            .foregroundColor(appGreen)
                         
-                        Divider().background(Color.white.opacity(0.1))
-                        
-                        // Schnellauswahl Chips
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Schnellauswahl")
-                                .font(.system(size: 13, weight: .semibold))
-                                .foregroundColor(.gray)
-                            
-                            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-                                ForEach(presetGoals, id: \.self) { goal in
-                                    Text("\(goal.formatted())")
-                                        .font(.system(size: 14, weight: .bold))
-                                        .foregroundColor(goal == 10000 ? .black : .white)
-                                        .frame(maxWidth: .infinity)
-                                        .padding(.vertical, 12)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 12)
-                                                .fill(goal == 10000 ? appGreen : Color.white.opacity(0.08))
-                                        )
-                                }
-                            }
-                        }
+                        Text("Schritte jeden Tag")
+                            .font(.system(size: 15))
+                            .foregroundColor(.gray)
                     }
-                    .padding(22)
-                    .background(RoundedRectangle(cornerRadius: 24).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 24).stroke(cardBorder, lineWidth: 1)))
+                    .padding(.top, 10)
                     
-                    // Motivations-Mitteilungen Card
-                    VStack(alignment: .leading, spacing: 16) {
+                    // Stepper Buttons
+                    HStack(spacing: 24) {
                         HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("Smarte Motivation")
-                                    .font(.system(size: 17, weight: .bold))
-                                    .foregroundColor(.white)
-                                Text("Mitteilungen bei Meilensteinen")
-                                    .font(.system(size: 13))
-                                    .foregroundColor(.gray)
-                            }
-                            Spacer()
-                            // Active Toggle
-                            RoundedRectangle(cornerRadius: 16)
-                                .fill(appGreen)
-                                .frame(width: 50, height: 30)
-                                .overlay(
-                                    Circle()
-                                        .fill(Color.white)
-                                        .padding(2),
-                                    alignment: .trailing
-                                )
+                            Image(systemName: "minus")
+                            Text("500")
                         }
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background(RoundedRectangle(cornerRadius: 14).fill(Color.white.opacity(0.1)))
                         
-                        Divider().background(Color.white.opacity(0.1))
+                        HStack {
+                            Image(systemName: "plus")
+                            Text("500")
+                        }
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background(RoundedRectangle(cornerRadius: 14).fill(Color.white.opacity(0.1)))
+                    }
+                    
+                    Divider().background(Color.white.opacity(0.1))
+                    
+                    // Schnellauswahl Chips
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Schnellauswahl")
+                            .font(.system(size: 13, weight: .semibold))
+                            .foregroundColor(.gray)
                         
-                        // Meilensteine Badges
-                        HStack(spacing: 8) {
-                            ForEach(["25%", "50%", "75%", "90%", "100%"], id: \.self) { milestone in
-                                Text(milestone)
-                                    .font(.system(size: 12, weight: .bold))
-                                    .foregroundColor(appGreen)
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 6)
-                                    .background(Capsule().fill(appGreen.opacity(0.15)))
+                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                            ForEach(presetGoals, id: \.self) { goal in
+                                Text("\(goal.formatted())")
+                                    .font(.system(size: 14, weight: .bold))
+                                    .foregroundColor(goal == 10000 ? .black : .white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 12)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .fill(goal == 10000 ? appGreen : Color.white.opacity(0.08))
+                                    )
                             }
                         }
                     }
-                    .padding(20)
-                    .background(RoundedRectangle(cornerRadius: 24).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 24).stroke(cardBorder, lineWidth: 1)))
-                    
-                    // Speicher Button
-                    Text("Ziel speichern")
-                        .font(.system(size: 17, weight: .bold))
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(RoundedRectangle(cornerRadius: 16).fill(appGreen))
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 30)
+                .padding(22)
+                .background(RoundedRectangle(cornerRadius: 24).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 24).stroke(cardBorder, lineWidth: 1)))
+                
+                // Motivations-Mitteilungen Card
+                VStack(alignment: .leading, spacing: 16) {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Smarte Motivation")
+                                .font(.system(size: 17, weight: .bold))
+                                .foregroundColor(.white)
+                            Text("Mitteilungen bei Meilensteinen")
+                                .font(.system(size: 13))
+                                .foregroundColor(.gray)
+                        }
+                        Spacer()
+                        // Active Toggle
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(appGreen)
+                            .frame(width: 50, height: 30)
+                            .overlay(
+                                Circle()
+                                    .fill(Color.white)
+                                    .padding(2),
+                                alignment: .trailing
+                            )
+                    }
+                    
+                    Divider().background(Color.white.opacity(0.1))
+                    
+                    // Meilensteine Badges
+                    HStack(spacing: 8) {
+                        ForEach(["25%", "50%", "75%", "90%", "100%"], id: \.self) { milestone in
+                            Text(milestone)
+                                .font(.system(size: 12, weight: .bold))
+                                .foregroundColor(appGreen)
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 6)
+                                .background(Capsule().fill(appGreen.opacity(0.15)))
+                        }
+                    }
+                }
+                .padding(20)
+                .background(RoundedRectangle(cornerRadius: 24).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 24).stroke(cardBorder, lineWidth: 1)))
+                
+                // Speicher Button
+                Text("Ziel speichern")
+                    .font(.system(size: 17, weight: .bold))
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background(RoundedRectangle(cornerRadius: 16).fill(appGreen))
+                
+                Spacer()
             }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 20)
         }
         .frame(width: 430, height: 932)
         .background(bgBlack)
