@@ -177,8 +177,9 @@ Die Apple-Prüfer testen die App vor der Freigabe. Gib hier Folgendes an:
   ```
 - **Kontaktinformationen**:
   - Vorname & Nachname: Siegmund Murer
-  - Telefonnummer: deine Handynummer (inkl. Ländervorwahl, z. B. +49 ...)
-  - E-Mail-Adresse: deine E-Mail-Adresse
+  - Anschrift: Zinzendorfstr. 13a, 26131 Oldenburg, Deutschland
+  - Telefonnummer: +49 441 96019699
+  - E-Mail-Adresse: schrittweise@victorymind.de
 
 ---
 
