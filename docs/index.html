@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Schrittweise – Schrittzähler für iPhone & Apple Watch</title>
+  <title>Schrittweise – Eleganter Schrittzähler für iPhone & Apple Watch</title>
   <meta name="description" content="Schrittweise ist die minimalistische und elegante Schrittzähler-App für iPhone und Apple Watch. 100% Datenschutz, dynamische Fortschrittsringe und smarte Komplikationen.">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/png" href="favicon.png">
@@ -19,6 +19,7 @@
       </a>
       <nav>
         <a href="index.html" class="active">Start</a>
+        <a href="#showcase">Einblicke</a>
         <a href="support.html">Support & FAQ</a>
         <a href="privacy.html">Datenschutz</a>
       </nav>
@@ -26,64 +27,186 @@
   </header>
 
   <main>
+    <!-- Hero Section -->
     <section class="hero">
-      <div class="container">
+      <div class="container hero-content">
         <span class="badge">Designed für iOS 17+ & watchOS 10+</span>
         <h1>Dein täglicher Schrittzähler.<br><span class="gradient-text">Klar. Elegant. Privat.</span></h1>
-        <p>Erreiche deine täglichen Bewegungsziele mit dynamischen Fortschrittsringen, detaillierten Wochenstatistiken und intuitiven Apple Watch Komplikationen direkt auf deinem Zifferblatt.</p>
+        <p>Erreiche deine täglichen Bewegungsziele mit flüssigen Fortschrittsringen, 7-Tage-Historie und Zifferblatt-Komplikationen für deine Apple Watch – 100 % werbefrei und ohne Abo.</p>
         
         <div class="cta-group">
-          <a href="#features" class="btn-primary">
+          <a href="#showcase" class="btn-primary">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.78 1.06-1.87.94-2.97-1 .04-2.18.67-2.88 1.48-.61.71-1.14 1.83-1 2.92 1.11.09 2.24-.58 2.94-1.43z"/></svg>
             Im App Store laden
           </a>
-          <a href="support.html" class="btn-secondary">Hilfe & Support</a>
+          <a href="#showcase" class="btn-secondary">App entdecken</a>
+        </div>
+
+        <!-- Hero Mockup Duo -->
+        <div class="hero-mockup-duo">
+          <div class="phone-mockup">
+            <img src="images/screen_iphone_1.png" alt="Schrittweise iPhone App Tagesfortschritt" width="320" height="692" loading="eager">
+          </div>
+          <div class="watch-mockup">
+            <img src="images/screen_watch_1.png" alt="Schrittweise Apple Watch App" width="210" height="257" loading="eager">
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="features" class="features">
+    <!-- App Screenshots & Feature Deep-Dive Section -->
+    <section id="showcase" class="showcase-section">
       <div class="container">
         <div class="section-title">
-          <h2>Alles, was du für deinen Schritt-Alltag brauchst</h2>
-          <p>Konzentriere dich auf deine Gesundheit ohne störende Werbung oder Abos.</p>
+          <h2>Einblicke in Schrittweise</h2>
+          <p>Schlank, auf das Wesentliche reduziert und nahtlos in dein Apple-Ökosystem eingebettet.</p>
+        </div>
+
+        <!-- Showcase Row 1: Tagesfortschritt -->
+        <div class="showcase-row">
+          <div class="showcase-text">
+            <span class="showcase-pill pill-green">Echtzeit & Motivation</span>
+            <h3>Dein Tag auf einen Blick</h3>
+            <p>Ein dynamischer Farbverlaufsring visualisiert deinen Tagesfortschritt. Sieh sofort, wie viele Schritte du bereits geschafft hast und wie nah du deinem Ziel bist.</p>
+            <ul class="feature-list">
+              <li>
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span><strong>Flüssiger Aktivitätsring:</strong> Sanft animierter Kreisring mit Mint-Cyan-Farbverlauf.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span><strong>Distanz & Kalorien:</strong> Automatische Berechnung von Kilometern und aktiven Kalorien.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span><strong>Restschritte-Rechner:</strong> Zeigt exakt die noch fehlenden Schritte zum Tagesziel an.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="showcase-visual">
+            <div class="device-card">
+              <img src="images/screen_iphone_1.png" alt="Tagesziel & Aktivität im Blick" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <!-- Showcase Row 2: Wochenhistorie -->
+        <div class="showcase-row reverse">
+          <div class="showcase-text">
+            <span class="showcase-pill pill-cyan">Trends & Statistiken</span>
+            <h3>Die 7-Tage-Historie</h3>
+            <p>Verfolge deine Bewegungsroutine über die gesamte Woche. Ein klares Balkendiagramm zeigt deine tägliche Aktivität im Vergleich zu deinem Ziel.</p>
+            <ul class="feature-list">
+              <li>
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span><strong>Tagesbalken mit Zielmarke:</strong> Schnelle Übersicht mit gestrichelter Ziellinie.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span><strong>Erreichte Ziele:</strong> Tage mit erreichtem Ziel werden leuchtend grün hervorgehoben.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span><strong>Wochendurchschnitt:</strong> Ermittelt deinen durchschnittlichen Schrittwert pro Tag.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="showcase-visual">
+            <div class="device-card">
+              <img src="images/screen_iphone_2.png" alt="7-Tage-Historie & Trends" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <!-- Showcase Row 3: Ziele & Motivation -->
+        <div class="showcase-row">
+          <div class="showcase-text">
+            <span class="showcase-pill pill-orange">Individuell & Flexibel</span>
+            <h3>Ziel anpassen & smarte Motivation</h3>
+            <p>Passe dein Schrittziel mit Schnellauswahl-Buttons oder per Stepper millimetergenau an deinen Alltag an. Optionale Mitteilungen feiern deine Meilensteine.</p>
+            <ul class="feature-list">
+              <li>
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span><strong>Schnell-Voreinstellungen:</strong> 5k, 8k, 10k, 12k, 15k oder 20k Schritte mit einem Fingertipp.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span><strong>Feinabstimmung:</strong> Über die Stepper-Tasten in flexiblen 500er-Schritten justierbar.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span><strong>Motivierende Meilensteine:</strong> Push-Nachrichten bei 25%, 50%, 75%, 90% und beim Zielerfolg.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="showcase-visual">
+            <div class="device-card">
+              <img src="images/screen_iphone_3.png" alt="Ziel flexibel anpassen & Motivation" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <!-- Showcase Row 4: Apple Watch & Komplikationen -->
+        <div class="showcase-row reverse">
+          <div class="showcase-text">
+            <span class="showcase-pill pill-green">Direkt am Handgelenk</span>
+            <h3>Apple Watch & Komplikationen</h3>
+            <p>Schrittweise wurde von Grund auf für die Apple Watch optimiert. Sieh deine Schritte sofort auf deinem Lieblings-Zifferblatt, ohne dein iPhone aus der Tasche holen zu müssen.</p>
+            <ul class="feature-list">
+              <li>
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span><strong>Eigenständige Watch-App:</strong> Übersichtlicher Ring, Distanz, Kalorien und Zieländerung per Schieberegler.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span><strong>3 Zifferblatt-Designs:</strong> Wähle zwischen „Schritte & Fortschritt“, „Nur Schritte (Groß)“ oder „Verbleibende Schritte“.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span><strong>Akkuschonende Hintergrund-Updates:</strong> Liest direkt aus HealthKit und dem geschützten App-Group-Speicher.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="showcase-visual">
+            <div class="watch-duo">
+              <div class="watch-card">
+                <img src="images/screen_watch_1.png" alt="Schrittweise Apple Watch App" loading="lazy">
+              </div>
+              <div class="watch-card">
+                <img src="images/screen_watch_2.png" alt="Schrittweise Zifferblatt Komplikationen" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Key Advantages Grid -->
+    <section class="features">
+      <div class="container">
+        <div class="section-title">
+          <h2>Warum Schrittweise?</h2>
+          <p>Ehrliche Software ohne Schnickschnack, die sich nahtlos in dein Leben einfügt.</p>
         </div>
 
         <div class="grid">
           <div class="card">
-            <div class="card-icon icon-green">🎯</div>
-            <h3>Dynamischer Aktivitätsring</h3>
-            <p>Verfolge deine Schritte in Echtzeit mit einem flüssig animierten Fortschrittsring. Sieh auf einen Blick, wie viele Schritte dir noch bis zum Tagesziel fehlen.</p>
+            <div class="card-icon icon-green">🔒</div>
+            <h3>100% Datenschutz</h3>
+            <p>Deine Gesundheitsdaten gehören nur dir. Sämtliche Daten bleiben verschlüsselt auf deinen Apple-Geräten. Kein Tracking, keine Analyse-Tools, keine Server.</p>
           </div>
 
           <div class="card">
-            <div class="card-icon icon-cyan">⌚</div>
-            <h3>Apple Watch & Komplikationen</h3>
-            <p>Behalte deinen Fortschritt direkt am Handgelenk im Blick. Wähle aus drei Komplikations-Designs für dein Zifferblatt – von dezent bis extragroß.</p>
+            <div class="card-icon icon-cyan">⚡</div>
+            <h3>Ohne Abo & Werbung</h3>
+            <p>Keine störenden Banner-Werbungen, keine Pop-ups und keine versteckten monatlichen Abonnements. Konzentriere dich ungestört auf deine Bewegung.</p>
           </div>
 
           <div class="card">
-            <div class="card-icon icon-orange">🔥</div>
-            <h3>Distanz & Kalorien</h3>
-            <p>Zusätzlich zu deinen Schritten erfasst Schrittweise automatisch deine zurückgelegte Distanz in Kilometern sowie deine aktiv verbrannten Kalorien.</p>
-          </div>
-
-          <div class="card">
-            <div class="card-icon icon-yellow">📊</div>
-            <h3>7-Tage-Historie</h3>
-            <p>Ein klares Balkendiagramm visualisiert deine Aktivität der letzten 7 Tage. Grüne Balken zeigen dir sofort, an welchen Tagen du dein Ziel erreicht hast.</p>
-          </div>
-
-          <div class="card">
-            <div class="card-icon icon-green">🔔</div>
-            <h3>Smarte Motivation</h3>
-            <p>Erhalte motivierende Push-Mitteilungen bei 25%, 50%, 75%, 90% und beim Erreichen deines 100%-Tagesziels – ganz ohne Druck.</p>
-          </div>
-
-          <div class="card">
-            <div class="card-icon icon-cyan">🔒</div>
-            <h3>100% Privatsphäre</h3>
-            <p>Deine Gesundheitsdaten gehören ausschließlich dir. Alle Daten verbleiben lokal auf deinen Apple-Geräten in Apple Health. Kein Tracking, keine Server, keine Werbung.</p>
+            <div class="card-icon icon-orange">🔋</div>
+            <h3>Batterieschonend</h3>
+            <p>Optimiert für maximale Akkulaufzeit auf iPhone und Apple Watch. Nutzt die integrierten energiesparenden Bewegungssensoren von Apple Health.</p>
           </div>
         </div>
       </div>
@@ -96,6 +219,7 @@
       <div class="footer-links">
         <a href="support.html">Support & Kontakt</a>
         <a href="privacy.html">Datenschutz</a>
+        <a href="https://github.com/VictoryMouth/schrittweise" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
   </footer>
