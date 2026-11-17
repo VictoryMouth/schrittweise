@@ -37,9 +37,9 @@ Apple verlangt zwingend eine **Datenschutz-URL** und eine **Support-URL**. So ak
    - Branch: **main** (oder master) & Ordner: **/docs**
 4. Klicke auf **Save**.
 5. Nach ca. 1–2 Minuten ist deine Website online unter:
-   - Landing Page: `https://<dein-github-username>.github.io/<repo-name>/`
-   - Datenschutzerklärung: `https://<dein-github-username>.github.io/<repo-name>/privacy.html`
-   - Support & FAQ: `https://<dein-github-username>.github.io/<repo-name>/support.html`
+   - Landing Page: `https://victorymouth.github.io/schrittweise/`
+   - Datenschutzerklärung: `https://victorymouth.github.io/schrittweise/privacy.html`
+   - Support & FAQ: `https://victorymouth.github.io/schrittweise/support.html`
 
 *(Ersetze `<dein-github-username>` und `<repo-name>` durch deinen GitHub-Account und Repository-Namen).*
 
@@ -99,17 +99,17 @@ Apple fragt im Bereich **App-Datenschutz** nach der Datenerfassung:
 
 - **Support-URL**:
   ```text
-  https://<dein-github-username>.github.io/<repo-name>/support.html
+  https://victorymouth.github.io/schrittweise/support.html
   ```
 
 - **Marketing-URL (optional)**:
   ```text
-  https://<dein-github-username>.github.io/<repo-name>/
+  https://victorymouth.github.io/schrittweise/
   ```
 
 - **Datenschutzrichtlinie-URL (Zwingend erforderlich!)**:
   ```text
-  https://<dein-github-username>.github.io/<repo-name>/privacy.html
+  https://victorymouth.github.io/schrittweise/privacy.html
   ```
 
 - **Copyright**:
