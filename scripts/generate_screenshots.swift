@@ -1,559 +1,765 @@
+import SwiftUI
 import AppKit
-import Foundation
 
-// MARK: - Color Helpers
-extension NSColor {
-    convenience init(hex: UInt32, alpha: CGFloat = 1.0) {
-        let r = CGFloat((hex >> 16) & 0xFF) / 255.0
-        let g = CGFloat((hex >> 8) & 0xFF) / 255.0
-        let b = CGFloat(hex & 0xFF) / 255.0
-        self.init(red: r, green: g, blue: b, alpha: alpha)
+// MARK: - Color Palette
+let appGreen = Color(red: 0x30/255.0, green: 0xD1/255.0, blue: 0x58/255.0)
+let appMint = Color(red: 0x00/255.0, green: 0xC7/255.0, blue: 0xBE/255.0)
+let appCyan = Color(red: 0x64/255.0, green: 0xD2/255.0, blue: 0xFF/255.0)
+let appOrange = Color(red: 0xFF/255.0, green: 0x9F/255.0, blue: 0x0A/255.0)
+let appYellow = Color(red: 0xFF/255.0, green: 0xD6/255.0, blue: 0x0A/255.0)
+
+let bgBlack = Color(red: 0x07/255.0, green: 0x0A/255.0, blue: 0x08/255.0)
+let cardBg = Color(red: 0x14/255.0, green: 0x1B/255.0, blue: 0x17/255.0)
+let cardBorder = Color.white.opacity(0.08)
+
+// MARK: - Status Bar View
+struct StatusBarView: View {
+    var body: some View {
+        HStack {
+            Text("9:41")
+                .font(.system(size: 15, weight: .bold))
+                .foregroundColor(.white)
+            Spacer()
+            // Dynamic Island Placeholder
+            Capsule()
+                .fill(Color.black)
+                .frame(width: 120, height: 32)
+                .overlay(
+                    HStack(spacing: 8) {
+                        Circle().fill(Color.black).frame(width: 11, height: 11)
+                        Spacer()
+                        Circle().fill(Color.blue.opacity(0.3)).frame(width: 10, height: 10)
+                    }
+                    .padding(.horizontal, 10)
+                )
+            Spacer()
+            HStack(spacing: 6) {
+                Image(systemName: "cellularbars")
+                Image(systemName: "wifi")
+                Image(systemName: "battery.100")
+            }
+            .font(.system(size: 13, weight: .semibold))
+            .foregroundColor(.white)
+        }
+        .padding(.horizontal, 24)
+        .padding(.top, 12)
+        .padding(.bottom, 6)
     }
 }
 
-let primaryGreen = NSColor(hex: 0x30D158)
-let mintColor = NSColor(hex: 0x00C7BE)
-let cyanColor = NSColor(hex: 0x64D2FF)
-let orangeColor = NSColor(hex: 0xFF9F0A)
-let yellowColor = NSColor(hex: 0xFFD60A)
-let bgDark = NSColor(hex: 0x0B0F0D)
-let cardBgDark = NSColor(hex: 0x1C2320)
-let cardBorder = NSColor(hex: 0x2A3530)
-let secondaryText = NSColor(hex: 0x8E8E93)
-let tertiaryText = NSColor(hex: 0x636366)
-
-// MARK: - Drawing Utils
-func drawText(_ text: String, in rect: CGRect, font: NSFont, color: NSColor, alignment: NSTextAlignment = .left) {
-    let para = NSMutableParagraphStyle()
-    para.alignment = alignment
-    para.lineBreakMode = .byWordWrapping
-    let attrs: [NSAttributedString.Key: Any] = [
-        .font: font,
-        .foregroundColor: color,
-        .paragraphStyle: para
-    ]
-    (text as NSString).draw(in: rect, withAttributes: attrs)
-}
-
-func drawLinearGradient(ctx: CGContext, colors: [NSColor], in rect: CGRect, start: CGPoint, end: CGPoint) {
-    let cgColors = colors.map { $0.cgColor } as CFArray
-    let space = CGColorSpaceCreateDeviceRGB()
-    if let gradient = CGGradient(colorsSpace: space, colors: cgColors, locations: nil) {
-        ctx.saveGState()
-        ctx.clip(to: rect)
-        ctx.drawLinearGradient(gradient, start: start, end: end, options: [])
-        ctx.restoreGState()
+// MARK: - iPhone Screen 1: Tagesfortschritt
+struct IPhoneScreen1View: View {
+    var body: some View {
+        VStack(spacing: 0) {
+            StatusBarView()
+            
+            // Nav Bar
+            HStack {
+                Text("Schrittweise")
+                    .font(.system(size: 34, weight: .bold))
+                    .foregroundColor(.white)
+                Spacer()
+                Image(systemName: "arrow.clockwise")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(appGreen)
+                    .padding(10)
+                    .background(Circle().fill(appGreen.opacity(0.15)))
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 12)
+            .padding(.bottom, 16)
+            
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 20) {
+                    // Haupt-Fortschritts-Ring Hero Card
+                    VStack(spacing: 16) {
+                        ZStack {
+                            // Hintergrund-Ring
+                            Circle()
+                                .stroke(appGreen.opacity(0.15), lineWidth: 24)
+                            
+                            // Fortschritts-Ring mit Farbverlauf
+                            Circle()
+                                .trim(from: 0, to: 0.754)
+                                .stroke(
+                                    AngularGradient(
+                                        gradient: Gradient(colors: [appGreen, appMint, appCyan, appGreen]),
+                                        center: .center,
+                                        startAngle: .degrees(-90),
+                                        endAngle: .degrees(270)
+                                    ),
+                                    style: StrokeStyle(lineWidth: 24, lineCap: .round)
+                                )
+                                .rotationEffect(.degrees(-90))
+                            
+                            // Innere Daten
+                            VStack(spacing: 4) {
+                                Image(systemName: "figure.walk")
+                                    .font(.system(size: 28, weight: .bold))
+                                    .foregroundColor(appGreen)
+                                
+                                Text("7.542")
+                                    .font(.system(size: 44, weight: .heavy, design: .rounded))
+                                    .foregroundColor(.white)
+                                
+                                Text("von 10.000")
+                                    .font(.system(size: 15, weight: .medium))
+                                    .foregroundColor(.gray)
+                                
+                                Text("75%")
+                                    .font(.system(size: 13, weight: .bold))
+                                    .foregroundColor(appGreen)
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 4)
+                                    .background(Capsule().fill(appGreen.opacity(0.2)))
+                            }
+                        }
+                        .frame(width: 230, height: 230)
+                        .padding(.vertical, 10)
+                        
+                        // Fehlende Schritte Leiste
+                        HStack {
+                            Image(systemName: "flag.fill")
+                                .foregroundColor(appGreen)
+                                .font(.system(size: 13))
+                            Text("Noch **2.458 Schritte** bis zum Tagesziel")
+                                .font(.system(size: 14))
+                                .foregroundColor(.white)
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 10)
+                        .background(RoundedRectangle(cornerRadius: 12).fill(Color.white.opacity(0.06)))
+                    }
+                    .padding(20)
+                    .background(RoundedRectangle(cornerRadius: 24).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 24).stroke(cardBorder, lineWidth: 1)))
+                    
+                    // Metriken-Grid (Distanz & Kalorien)
+                    HStack(spacing: 14) {
+                        // Distanz Card
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack {
+                                Image(systemName: "figure.walk.motion")
+                                    .foregroundColor(appCyan)
+                                    .font(.system(size: 16))
+                                Spacer()
+                                Text("Distanz")
+                                    .font(.system(size: 12, weight: .medium))
+                                    .foregroundColor(.gray)
+                            }
+                            Text("5,8 km")
+                                .font(.system(size: 24, weight: .bold, design: .rounded))
+                                .foregroundColor(.white)
+                            Text("Heute zurückgelegt")
+                                .font(.system(size: 11))
+                                .foregroundColor(.gray.opacity(0.8))
+                        }
+                        .padding(16)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(RoundedRectangle(cornerRadius: 18).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 18).stroke(cardBorder, lineWidth: 1)))
+                        
+                        // Kalorien Card
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack {
+                                Image(systemName: "flame.fill")
+                                    .foregroundColor(appOrange)
+                                    .font(.system(size: 16))
+                                Spacer()
+                                Text("Kalorien")
+                                    .font(.system(size: 12, weight: .medium))
+                                    .foregroundColor(.gray)
+                            }
+                            Text("418 kcal")
+                                .font(.system(size: 24, weight: .bold, design: .rounded))
+                                .foregroundColor(.white)
+                            Text("Aktiv verbrannt")
+                                .font(.system(size: 11))
+                                .foregroundColor(.gray.opacity(0.8))
+                        }
+                        .padding(16)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(RoundedRectangle(cornerRadius: 18).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 18).stroke(cardBorder, lineWidth: 1)))
+                    }
+                    
+                    // Schnell-Aktionen
+                    HStack(spacing: 12) {
+                        HStack {
+                            Image(systemName: "target")
+                                .foregroundColor(appGreen)
+                            Text("Tagesziel anpassen")
+                                .font(.system(size: 15, weight: .semibold))
+                                .foregroundColor(.white)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(RoundedRectangle(cornerRadius: 16).fill(Color.white.opacity(0.08)))
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 30)
+            }
+        }
+        .frame(width: 430, height: 932)
+        .background(bgBlack)
     }
 }
 
-func drawRoundedRect(ctx: CGContext, rect: CGRect, cornerRadius: CGFloat, fill: NSColor?, stroke: NSColor? = nil, lineWidth: CGFloat = 1.0) {
-    let path = CGPath(roundedRect: rect, cornerWidth: cornerRadius, cornerHeight: cornerRadius, transform: nil)
-    if let fill = fill {
-        ctx.setFillColor(fill.cgColor)
-        ctx.addPath(path)
-        ctx.fillPath()
-    }
-    if let stroke = stroke {
-        ctx.setStrokeColor(stroke.cgColor)
-        ctx.setLineWidth(lineWidth)
-        ctx.addPath(path)
-        ctx.strokePath()
-    }
-}
-
-func drawProgressRing(ctx: CGContext, center: CGPoint, radius: CGFloat, lineWidth: CGFloat, progress: CGFloat) {
-    // Background Track
-    ctx.setLineWidth(lineWidth)
-    ctx.setLineCap(.round)
-    ctx.setStrokeColor(primaryGreen.withAlphaComponent(0.2).cgColor)
-    ctx.addArc(center: center, radius: radius, startAngle: 0, endAngle: .pi * 2, clockwise: false)
-    ctx.strokePath()
-    
-    // Gradient Progress Arc
-    let startAngle: CGFloat = -.pi / 2
-    let endAngle: CGFloat = startAngle + (.pi * 2 * progress)
-    
-    ctx.saveGState()
-    ctx.setStrokeColor(primaryGreen.cgColor)
-    ctx.addArc(center: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
-    ctx.strokePath()
-    ctx.restoreGState()
-}
-
-func saveImage(rep: NSBitmapImageRep, to path: String) {
-    guard let data = rep.representation(using: .png, properties: [:]) else { return }
-    let url = URL(fileURLWithPath: path)
-    try? data.write(to: url)
-    print("Created: \(path)")
-}
-
-// =========================================================================
-// MARK: - iPhone Screenshot Generator (1290 x 2796)
-// =========================================================================
-
-func makeIPhoneContext() -> (NSBitmapImageRep, CGContext) {
-    let w = 1290
-    let h = 2796
-    let rep = NSBitmapImageRep(
-        bitmapDataPlanes: nil,
-        pixelsWide: w,
-        pixelsHigh: h,
-        bitsPerSample: 8,
-        samplesPerPixel: 4,
-        hasAlpha: true,
-        isPlanar: false,
-        colorSpaceName: .deviceRGB,
-        bytesPerRow: 0,
-        bitsPerPixel: 0
-    )!
-    
-    let ctx = NSGraphicsContext(bitmapImageRep: rep)!.cgContext
-    return (rep, ctx)
-}
-
-func drawIPhoneBase(ctx: CGContext, title: String, subtitle: String) -> CGRect {
-    let w: CGFloat = 1290
-    let h: CGFloat = 2796
-    
-    // Background gradient
-    drawLinearGradient(
-        ctx: ctx,
-        colors: [NSColor(hex: 0x07110C), NSColor(hex: 0x020504)],
-        in: CGRect(x: 0, y: 0, width: w, height: h),
-        start: CGPoint(x: w/2, y: h),
-        end: CGPoint(x: w/2, y: 0)
-    )
-    
-    // Subtle top radial glow
-    ctx.saveGState()
-    let glowColors = [primaryGreen.withAlphaComponent(0.18).cgColor, NSColor.clear.cgColor] as CFArray
-    let space = CGColorSpaceCreateDeviceRGB()
-    if let radial = CGGradient(colorsSpace: space, colors: glowColors, locations: [0.0, 1.0]) {
-        ctx.drawRadialGradient(radial, startCenter: CGPoint(x: w/2, y: h - 150), startRadius: 0, endCenter: CGPoint(x: w/2, y: h - 150), endRadius: 700, options: [])
-    }
-    ctx.restoreGState()
-    
-    // Top Headline & Subheadline
-    let titleFont = NSFont.systemFont(ofSize: 76, weight: .heavy)
-    let subtitleFont = NSFont.systemFont(ofSize: 38, weight: .medium)
-    
-    drawText(title, in: CGRect(x: 80, y: h - 330, width: w - 160, height: 180), font: titleFont, color: .white, alignment: .center)
-    drawText(subtitle, in: CGRect(x: 100, y: h - 450, width: w - 200, height: 110), font: subtitleFont, color: primaryGreen, alignment: .center)
-    
-    // Phone Device Frame
-    let phoneWidth: CGFloat = 1050
-    let phoneHeight: CGFloat = 2150
-    let phoneX = (w - phoneWidth) / 2
-    let phoneY: CGFloat = -100 // clipped slightly at bottom for standard App Store style
-    let phoneRect = CGRect(x: phoneX, y: phoneY, width: phoneWidth, height: phoneHeight)
-    
-    // Device Outer Border & Shadow
-    ctx.saveGState()
-    ctx.setShadow(offset: CGSize(width: 0, height: 25), blur: 70, color: NSColor.black.withAlphaComponent(0.7).cgColor)
-    drawRoundedRect(ctx: ctx, rect: phoneRect, cornerRadius: 110, fill: NSColor(hex: 0x000000), stroke: NSColor(hex: 0x333333), lineWidth: 10)
-    ctx.restoreGState()
-    
-    // Phone Inner Screen
-    let screenInset: CGFloat = 20
-    let screenRect = phoneRect.insetBy(dx: screenInset, dy: screenInset)
-    drawRoundedRect(ctx: ctx, rect: screenRect, cornerRadius: 90, fill: NSColor(hex: 0x000000))
-    
-    // Dynamic Island Mockup
-    let islandW: CGFloat = 260
-    let islandH: CGFloat = 65
-    let islandX = screenRect.midX - (islandW / 2)
-    let islandY = screenRect.maxY - 110
-    drawRoundedRect(ctx: ctx, rect: CGRect(x: islandX, y: islandY, width: islandW, height: islandH), cornerRadius: 32, fill: .black)
-    
-    // Status Bar items (Time, Battery)
-    let statusFont = NSFont.systemFont(ofSize: 30, weight: .semibold)
-    drawText("9:41", in: CGRect(x: screenRect.minX + 70, y: screenRect.maxY - 95, width: 140, height: 40), font: statusFont, color: .white)
-    
-    // App Navigation Bar inside Screen
-    let navY = screenRect.maxY - 220
-    let navTitleFont = NSFont.systemFont(ofSize: 48, weight: .bold)
-    drawText("Schrittweise", in: CGRect(x: screenRect.minX + 50, y: navY, width: 400, height: 60), font: navTitleFont, color: .white)
-    
-    // Date header
-    let dateFont = NSFont.systemFont(ofSize: 26, weight: .medium)
-    drawText("HEUTE, 17. NOVEMBER", in: CGRect(x: screenRect.minX + 52, y: navY + 58, width: 400, height: 35), font: dateFont, color: secondaryText)
-    
-    return screenRect
-}
-
-// -------------------------------------------------------------
-// Screen 1: Dashboard & Progress
-// -------------------------------------------------------------
-func generateIPhoneScreen1() {
-    let (rep, ctx) = makeIPhoneContext()
-    let screen = drawIPhoneBase(ctx: ctx, title: "Tagesziel & Aktivität im Blick", subtitle: "Dynamischer Fortschrittsring in Echtzeit")
-    
-    // Hero Progress Card
-    let heroRect = CGRect(x: screen.minX + 40, y: screen.maxY - 880, width: screen.width - 80, height: 620)
-    drawRoundedRect(ctx: ctx, rect: heroRect, cornerRadius: 40, fill: cardBgDark, stroke: cardBorder, lineWidth: 2)
-    
-    // Circular Ring in Hero Card
-    let ringCenter = CGPoint(x: heroRect.midX, y: heroRect.minY + 360)
-    drawProgressRing(ctx: ctx, center: ringCenter, radius: 170, lineWidth: 28, progress: 0.784)
-    
-    // Inner Ring Labels
-    let stepsNumberFont = NSFont.systemFont(ofSize: 72, weight: .heavy)
-    let stepsLabelFont = NSFont.systemFont(ofSize: 28, weight: .semibold)
-    let goalLabelFont = NSFont.systemFont(ofSize: 26, weight: .medium)
-    
-    drawText("7.842", in: CGRect(x: heroRect.minX, y: ringCenter.y - 45, width: heroRect.width, height: 85), font: stepsNumberFont, color: .white, alignment: .center)
-    drawText("Schritte heute", in: CGRect(x: heroRect.minX, y: ringCenter.y - 95, width: heroRect.width, height: 40), font: stepsLabelFont, color: primaryGreen, alignment: .center)
-    drawText("Tagesziel: 10.000", in: CGRect(x: heroRect.minX, y: ringCenter.y + 70, width: heroRect.width, height: 35), font: goalLabelFont, color: secondaryText, alignment: .center)
-    
-    // Bottom Hero Bar: 78% • Noch 2.158 Schritte
-    let badgeRect = CGRect(x: heroRect.minX + 50, y: heroRect.minY + 45, width: heroRect.width - 100, height: 65)
-    drawRoundedRect(ctx: ctx, rect: badgeRect, cornerRadius: 20, fill: NSColor.white.withAlphaComponent(0.06))
-    let badgeFont = NSFont.systemFont(ofSize: 30, weight: .bold)
-    drawText("78% erreicht  •  Noch 2.158 Schritte", in: CGRect(x: badgeRect.minX, y: badgeRect.minY + 14, width: badgeRect.width, height: 45), font: badgeFont, color: primaryGreen, alignment: .center)
-    
-    // 3 Metric Cards Grid
-    let gridY = heroRect.minY - 240
-    let cardW = (heroRect.width - 40) / 3
-    let metricHeight: CGFloat = 210
-    
-    let metrics: [(String, String, String, NSColor)] = [
-        ("Distanz", "5.88 km", "location.fill", cyanColor),
-        ("Kalorien", "314 kcal", "flame.fill", orangeColor),
-        ("Fortschritt", "78%", "target", primaryGreen)
+// MARK: - iPhone Screen 2: 7-Tage-Historie
+struct IPhoneScreen2View: View {
+    let weekDays: [(day: String, steps: Int, goal: Int, reached: Bool)] = [
+        ("Mo", 8420, 10000, false),
+        ("Di", 10450, 10000, true),
+        ("Mi", 7200, 10000, false),
+        ("Do", 11200, 10000, true),
+        ("Fr", 9850, 10000, false),
+        ("Sa", 12340, 10000, true),
+        ("So", 7542, 10000, false)
     ]
     
-    for (i, m) in metrics.enumerated() {
-        let cardRect = CGRect(x: heroRect.minX + CGFloat(i) * (cardW + 20), y: gridY, width: cardW, height: metricHeight)
-        drawRoundedRect(ctx: ctx, rect: cardRect, cornerRadius: 30, fill: cardBgDark, stroke: cardBorder, lineWidth: 2)
-        
-        let mLabelFont = NSFont.systemFont(ofSize: 26, weight: .medium)
-        let mValFont = NSFont.systemFont(ofSize: 42, weight: .heavy)
-        
-        drawText(m.0, in: CGRect(x: cardRect.minX + 24, y: cardRect.maxY - 60, width: cardRect.width - 48, height: 35), font: mLabelFont, color: m.3)
-        drawText(m.1, in: CGRect(x: cardRect.minX + 24, y: cardRect.minY + 40, width: cardRect.width - 48, height: 60), font: mValFont, color: .white)
+    var body: some View {
+        VStack(spacing: 0) {
+            StatusBarView()
+            
+            // Nav Bar
+            HStack {
+                Text("Wochen-Trend")
+                    .font(.system(size: 34, weight: .bold))
+                    .foregroundColor(.white)
+                Spacer()
+                Text("Letzte 7 Tage")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundColor(appGreen)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+                    .background(Capsule().fill(appGreen.opacity(0.18)))
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 12)
+            .padding(.bottom, 16)
+            
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 20) {
+                    // Haupt-Diagramm Card
+                    VStack(alignment: .leading, spacing: 18) {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("DURCHSCHNITT")
+                                    .font(.system(size: 11, weight: .bold))
+                                    .foregroundColor(.gray)
+                                Text("9.571")
+                                    .font(.system(size: 32, weight: .heavy, design: .rounded))
+                                    .foregroundColor(.white)
+                                Text("Schritte pro Tag")
+                                    .font(.system(size: 13))
+                                    .foregroundColor(appGreen)
+                            }
+                            Spacer()
+                            VStack(alignment: .trailing, spacing: 4) {
+                                Text("ZIELQUOTE")
+                                    .font(.system(size: 11, weight: .bold))
+                                    .foregroundColor(.gray)
+                                Text("3 / 7")
+                                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                                    .foregroundColor(appYellow)
+                                Text("Tage erreicht")
+                                    .font(.system(size: 13))
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                        
+                        Divider().background(Color.white.opacity(0.1))
+                        
+                        // Balkendiagramm
+                        HStack(alignment: .bottom, spacing: 14) {
+                            ForEach(weekDays, id: \.day) { item in
+                                VStack(spacing: 8) {
+                                    ZStack(alignment: .bottom) {
+                                        // Hintergrund-Säule
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .fill(Color.white.opacity(0.06))
+                                            .frame(width: 38, height: 160)
+                                        
+                                        // Aktiver Fortschrittsbalken
+                                        let barH = CGFloat(item.steps) / 13000.0 * 160.0
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .fill(
+                                                item.reached
+                                                ? LinearGradient(colors: [appGreen, appMint], startPoint: .top, endPoint: .bottom)
+                                                : LinearGradient(colors: [appCyan.opacity(0.8), appCyan.opacity(0.4)], startPoint: .top, endPoint: .bottom)
+                                            )
+                                            .frame(width: 38, height: min(160, max(20, barH)))
+                                            .overlay(
+                                                item.reached
+                                                ? Image(systemName: "star.fill")
+                                                    .font(.system(size: 10))
+                                                    .foregroundColor(.black)
+                                                    .padding(.top, 6)
+                                                : nil,
+                                                alignment: .top
+                                            )
+                                    }
+                                    
+                                    Text(item.day)
+                                        .font(.system(size: 13, weight: item.day == "So" ? .bold : .medium))
+                                        .foregroundColor(item.day == "So" ? appGreen : .gray)
+                                }
+                            }
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 8)
+                        
+                        // Ziellinie Legende
+                        HStack(spacing: 8) {
+                            Circle().fill(appGreen).frame(width: 8, height: 8)
+                            Text("Ziel erreicht (10.000+)")
+                                .font(.system(size: 12))
+                                .foregroundColor(.gray)
+                            Spacer()
+                            Circle().fill(appCyan).frame(width: 8, height: 8)
+                            Text("Aktiv")
+                                .font(.system(size: 12))
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    .padding(20)
+                    .background(RoundedRectangle(cornerRadius: 24).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 24).stroke(cardBorder, lineWidth: 1)))
+                    
+                    // Gesamt-Statistiken
+                    VStack(spacing: 12) {
+                        HStack {
+                            Text("Wochen-Zusammenfassung")
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundColor(.white)
+                            Spacer()
+                        }
+                        
+                        HStack(spacing: 12) {
+                            VStack(alignment: .leading, spacing: 6) {
+                                Text("GESAMTSCHRITTE")
+                                    .font(.system(size: 11, weight: .semibold))
+                                    .foregroundColor(.gray)
+                                Text("67.002")
+                                    .font(.system(size: 22, weight: .bold, design: .rounded))
+                                    .foregroundColor(.white)
+                            }
+                            .padding(16)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(RoundedRectangle(cornerRadius: 16).fill(Color.white.opacity(0.05)))
+                            
+                            VStack(alignment: .leading, spacing: 6) {
+                                Text("GESAMTDISTANZ")
+                                    .font(.system(size: 11, weight: .semibold))
+                                    .foregroundColor(.gray)
+                                Text("51,2 km")
+                                    .font(.system(size: 22, weight: .bold, design: .rounded))
+                                    .foregroundColor(appCyan)
+                            }
+                            .padding(16)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(RoundedRectangle(cornerRadius: 16).fill(Color.white.opacity(0.05)))
+                        }
+                    }
+                    .padding(20)
+                    .background(RoundedRectangle(cornerRadius: 24).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 24).stroke(cardBorder, lineWidth: 1)))
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 30)
+            }
+        }
+        .frame(width: 430, height: 932)
+        .background(bgBlack)
     }
-    
-    // Action Button Preview
-    let btnY = gridY - 150
-    let btnRect = CGRect(x: heroRect.minX, y: btnY, width: heroRect.width, height: 110)
-    drawRoundedRect(ctx: ctx, rect: btnRect, cornerRadius: 28, fill: primaryGreen)
-    let btnFont = NSFont.systemFont(ofSize: 34, weight: .bold)
-    drawText("Tagesziel ändern & Einstellungen", in: CGRect(x: btnRect.minX, y: btnRect.minY + 32, width: btnRect.width, height: 50), font: btnFont, color: .black, alignment: .center)
-    
-    saveImage(rep: rep, to: "AppStore_Screenshots/iPhone/01_iPhone_Tagesfortschritt.png")
 }
 
-// -------------------------------------------------------------
-// Screen 2: 7-Days History
-// -------------------------------------------------------------
-func generateIPhoneScreen2() {
-    let (rep, ctx) = makeIPhoneContext()
-    let screen = drawIPhoneBase(ctx: ctx, title: "7-Tage-Historie & Trends", subtitle: "Deine Aktivität der Woche auf einen Blick")
+// MARK: - iPhone Screen 3: Ziele & Motivation
+struct IPhoneScreen3View: View {
+    let presetGoals = [5000, 8000, 10000, 12000, 15000, 20000]
     
-    // Weekly Chart Card
-    let chartRect = CGRect(x: screen.minX + 40, y: screen.maxY - 1100, width: screen.width - 80, height: 840)
-    drawRoundedRect(ctx: ctx, rect: chartRect, cornerRadius: 40, fill: cardBgDark, stroke: cardBorder, lineWidth: 2)
+    var body: some View {
+        VStack(spacing: 0) {
+            StatusBarView()
+            
+            // Background Header
+            HStack {
+                Text("Einstellungen")
+                    .font(.system(size: 34, weight: .bold))
+                    .foregroundColor(.white)
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 12)
+            .padding(.bottom, 16)
+            
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 20) {
+                    // Sheet-Like Card: Ziel einstellen
+                    VStack(spacing: 20) {
+                        VStack(spacing: 6) {
+                            Text("TÄGLICHES SCHRITTZIEL")
+                                .font(.system(size: 12, weight: .bold))
+                                .foregroundColor(.gray)
+                            
+                            Text("10.000")
+                                .font(.system(size: 50, weight: .heavy, design: .rounded))
+                                .foregroundColor(appGreen)
+                            
+                            Text("Schritte jeden Tag")
+                                .font(.system(size: 15))
+                                .foregroundColor(.gray)
+                        }
+                        .padding(.top, 10)
+                        
+                        // Stepper Buttons
+                        HStack(spacing: 24) {
+                            HStack {
+                                Image(systemName: "minus")
+                                Text("500")
+                            }
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 12)
+                            .background(RoundedRectangle(cornerRadius: 14).fill(Color.white.opacity(0.1)))
+                            
+                            HStack {
+                                Image(systemName: "plus")
+                                Text("500")
+                            }
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 12)
+                            .background(RoundedRectangle(cornerRadius: 14).fill(Color.white.opacity(0.1)))
+                        }
+                        
+                        Divider().background(Color.white.opacity(0.1))
+                        
+                        // Schnellauswahl Chips
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Schnellauswahl")
+                                .font(.system(size: 13, weight: .semibold))
+                                .foregroundColor(.gray)
+                            
+                            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                                ForEach(presetGoals, id: \.self) { goal in
+                                    Text("\(goal.formatted())")
+                                        .font(.system(size: 14, weight: .bold))
+                                        .foregroundColor(goal == 10000 ? .black : .white)
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 12)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .fill(goal == 10000 ? appGreen : Color.white.opacity(0.08))
+                                        )
+                                }
+                            }
+                        }
+                    }
+                    .padding(22)
+                    .background(RoundedRectangle(cornerRadius: 24).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 24).stroke(cardBorder, lineWidth: 1)))
+                    
+                    // Motivations-Mitteilungen Card
+                    VStack(alignment: .leading, spacing: 16) {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Smarte Motivation")
+                                    .font(.system(size: 17, weight: .bold))
+                                    .foregroundColor(.white)
+                                Text("Mitteilungen bei Meilensteinen")
+                                    .font(.system(size: 13))
+                                    .foregroundColor(.gray)
+                            }
+                            Spacer()
+                            // Active Toggle
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(appGreen)
+                                .frame(width: 50, height: 30)
+                                .overlay(
+                                    Circle()
+                                        .fill(Color.white)
+                                        .padding(2),
+                                    alignment: .trailing
+                                )
+                        }
+                        
+                        Divider().background(Color.white.opacity(0.1))
+                        
+                        // Meilensteine Badges
+                        HStack(spacing: 8) {
+                            ForEach(["25%", "50%", "75%", "90%", "100%"], id: \.self) { milestone in
+                                Text(milestone)
+                                    .font(.system(size: 12, weight: .bold))
+                                    .foregroundColor(appGreen)
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 6)
+                                    .background(Capsule().fill(appGreen.opacity(0.15)))
+                            }
+                        }
+                    }
+                    .padding(20)
+                    .background(RoundedRectangle(cornerRadius: 24).fill(cardBg).overlay(RoundedRectangle(cornerRadius: 24).stroke(cardBorder, lineWidth: 1)))
+                    
+                    // Speicher Button
+                    Text("Ziel speichern")
+                        .font(.system(size: 17, weight: .bold))
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(RoundedRectangle(cornerRadius: 16).fill(appGreen))
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 30)
+            }
+        }
+        .frame(width: 430, height: 932)
+        .background(bgBlack)
+    }
+}
+
+// MARK: - Apple Watch Screen 1: Watch App
+struct WatchScreen1View: View {
+    var body: some View {
+        VStack(spacing: 8) {
+            // Header
+            HStack {
+                Text("9:41")
+                    .font(.system(size: 13, weight: .bold))
+                    .foregroundColor(appGreen)
+                Spacer()
+                Image(systemName: "figure.walk")
+                    .foregroundColor(appGreen)
+                    .font(.system(size: 12))
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 14)
+            
+            // Ring
+            ZStack {
+                Circle()
+                    .stroke(appGreen.opacity(0.2), lineWidth: 14)
+                
+                Circle()
+                    .trim(from: 0, to: 0.754)
+                    .stroke(
+                        AngularGradient(
+                            gradient: Gradient(colors: [appGreen, appMint, appCyan, appGreen]),
+                            center: .center,
+                            startAngle: .degrees(-90),
+                            endAngle: .degrees(270)
+                        ),
+                        style: StrokeStyle(lineWidth: 14, lineCap: .round)
+                    )
+                    .rotationEffect(.degrees(-90))
+                
+                VStack(spacing: 2) {
+                    Text("7.542")
+                        .font(.system(size: 26, weight: .heavy, design: .rounded))
+                        .foregroundColor(.white)
+                    Text("75%")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(appGreen)
+                }
+            }
+            .frame(width: 140, height: 140)
+            .padding(.vertical, 4)
+            
+            // Metrics Pills
+            HStack(spacing: 8) {
+                HStack(spacing: 4) {
+                    Image(systemName: "figure.walk")
+                        .foregroundColor(appCyan)
+                        .font(.system(size: 10))
+                    Text("5,8 km")
+                        .font(.system(size: 13, weight: .bold))
+                        .foregroundColor(.white)
+                }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 6)
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.1)))
+                
+                HStack(spacing: 4) {
+                    Image(systemName: "flame.fill")
+                        .foregroundColor(appOrange)
+                        .font(.system(size: 10))
+                    Text("418 kcal")
+                        .font(.system(size: 13, weight: .bold))
+                        .foregroundColor(.white)
+                }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 6)
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.1)))
+            }
+            
+            Spacer()
+        }
+        .frame(width: 205, height: 251)
+        .background(Color.black)
+    }
+}
+
+// MARK: - Apple Watch Screen 2: Zifferblatt Komplikationen
+struct WatchScreen2View: View {
+    var body: some View {
+        VStack(spacing: 10) {
+            // Header / Watch Face Time
+            VStack(spacing: 2) {
+                Text("MO. 17. NOV.")
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundColor(appGreen)
+                Text("10:09")
+                    .font(.system(size: 38, weight: .thin, design: .rounded))
+                    .foregroundColor(.white)
+            }
+            .padding(.top, 14)
+            
+            // Modular Rectangular Complication
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Image(systemName: "figure.walk")
+                        .foregroundColor(appGreen)
+                        .font(.system(size: 11))
+                    Text("SCHRITTE")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundColor(.gray)
+                    Spacer()
+                    Text("75%")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundColor(appGreen)
+                }
+                
+                Text("7.542 / 10.000")
+                    .font(.system(size: 15, weight: .bold, design: .rounded))
+                    .foregroundColor(.white)
+                
+                // Progress Bar
+                GeometryReader { geo in
+                    ZStack(alignment: .leading) {
+                        Capsule().fill(Color.white.opacity(0.15))
+                        Capsule()
+                            .fill(LinearGradient(colors: [appGreen, appMint], startPoint: .leading, endPoint: .trailing))
+                            .frame(width: geo.size.width * 0.754)
+                    }
+                }
+                .frame(height: 6)
+            }
+            .padding(10)
+            .background(RoundedRectangle(cornerRadius: 14).fill(Color.white.opacity(0.12)))
+            .padding(.horizontal, 10)
+            
+            // Circular Complications Row
+            HStack(spacing: 14) {
+                // Complication: Ring + Count
+                ZStack {
+                    Circle().stroke(appGreen.opacity(0.2), lineWidth: 4)
+                    Circle().trim(from: 0, to: 0.75)
+                        .stroke(appGreen, style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                        .rotationEffect(.degrees(-90))
+                    VStack(spacing: 0) {
+                        Text("7.5k")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundColor(.white)
+                    }
+                }
+                .frame(width: 44, height: 44)
+                
+                // Complication: Kalorien
+                ZStack {
+                    Circle().fill(Color.white.opacity(0.1))
+                    VStack(spacing: 1) {
+                        Image(systemName: "flame.fill")
+                            .font(.system(size: 11))
+                            .foregroundColor(appOrange)
+                        Text("418")
+                            .font(.system(size: 9, weight: .bold))
+                            .foregroundColor(.white)
+                    }
+                }
+                .frame(width: 44, height: 44)
+                
+                // Complication: Distanz
+                ZStack {
+                    Circle().fill(Color.white.opacity(0.1))
+                    VStack(spacing: 1) {
+                        Image(systemName: "figure.walk")
+                            .font(.system(size: 11))
+                            .foregroundColor(appCyan)
+                        Text("5.8k")
+                            .font(.system(size: 9, weight: .bold))
+                            .foregroundColor(.white)
+                    }
+                }
+                .frame(width: 44, height: 44)
+            }
+            .padding(.top, 2)
+            
+            Spacer()
+        }
+        .frame(width: 205, height: 251)
+        .background(Color.black)
+    }
+}
+
+// MARK: - Main Execution
+MainActor.assumeIsolated {
+    // 1. Create directories
+    let fm = FileManager.default
+    try? fm.createDirectory(atPath: "AppStore_Screenshots/iPhone", withIntermediateDirectories: true)
+    try? fm.createDirectory(atPath: "AppStore_Screenshots/AppleWatch", withIntermediateDirectories: true)
+    try? fm.createDirectory(atPath: "docs/images", withIntermediateDirectories: true)
     
-    let titleFont = NSFont.systemFont(ofSize: 42, weight: .bold)
-    let avgFont = NSFont.systemFont(ofSize: 28, weight: .medium)
-    drawText("Letzte 7 Tage", in: CGRect(x: chartRect.minX + 40, y: chartRect.maxY - 80, width: 400, height: 50), font: titleFont, color: .white)
-    drawText("Ø 9.608 Schritte / Tag", in: CGRect(x: chartRect.maxX - 440, y: chartRect.maxY - 72, width: 400, height: 40), font: avgFont, color: primaryGreen, alignment: .right)
-    
-    // Chart Bars
-    let days: [(String, Int, Bool)] = [
-        ("Mo", 8400, false),
-        ("Di", 10250, true),
-        ("Mi", 9120, false),
-        ("Do", 11450, true),
-        ("Fr", 7900, false),
-        ("Sa", 12300, true),
-        ("So", 7842, false)
+    // 2. Render iPhone Screens at 3x scale (430x932 * 3 = 1290x2796 exact App Store pixel resolution!)
+    let iphoneRenderConfigs: [(view: AnyView, name: String)] = [
+        (AnyView(IPhoneScreen1View()), "01_iPhone_Tagesfortschritt"),
+        (AnyView(IPhoneScreen2View()), "02_iPhone_Wochenhistorie"),
+        (AnyView(IPhoneScreen3View()), "03_iPhone_Ziele_Motivation")
     ]
     
-    let maxSteps = 14000
-    let chartAreaH: CGFloat = 460
-    let chartBottom: CGFloat = chartRect.minY + 150
-    let barWidth: CGFloat = (chartRect.width - 160) / 7
-    
-    // Goal line (10.000)
-    let goalY = chartBottom + (chartAreaH * CGFloat(10000) / CGFloat(maxSteps))
-    ctx.setStrokeColor(yellowColor.withAlphaComponent(0.5).cgColor)
-    ctx.setLineWidth(2)
-    ctx.setLineDash(phase: 0, lengths: [8, 6])
-    ctx.beginPath()
-    ctx.move(to: CGPoint(x: chartRect.minX + 40, y: goalY))
-    ctx.addLine(to: CGPoint(x: chartRect.maxX - 40, y: goalY))
-    ctx.strokePath()
-    ctx.setLineDash(phase: 0, lengths: [])
-    
-    let goalTextFont = NSFont.systemFont(ofSize: 22, weight: .semibold)
-    drawText("ZIEL: 10.000", in: CGRect(x: chartRect.minX + 45, y: goalY + 6, width: 200, height: 30), font: goalTextFont, color: yellowColor)
-    
-    let dayFont = NSFont.systemFont(ofSize: 26, weight: .bold)
-    let stepsFont = NSFont.systemFont(ofSize: 22, weight: .medium)
-    
-    for (i, day) in days.enumerated() {
-        let x = chartRect.minX + 60 + CGFloat(i) * (barWidth + 12)
-        let barH = chartAreaH * (CGFloat(day.1) / CGFloat(maxSteps))
-        let barRect = CGRect(x: x, y: chartBottom, width: barWidth - 12, height: barH)
+    for (i, item) in iphoneRenderConfigs.enumerated() {
+        let renderer = ImageRenderer(content: item.view)
+        renderer.scale = 3.0 // 430 * 3 = 1290, 932 * 3 = 2796
+        if let cgImg = renderer.cgImage {
+            let rep = NSBitmapImageRep(cgImage: cgImg)
+            if let pngData = rep.representation(using: .png, properties: [:]) {
+                let appStorePath = "AppStore_Screenshots/iPhone/\(item.name).png"
+                try? pngData.write(to: URL(fileURLWithPath: appStorePath))
+                print("App Store iPhone created: \(appStorePath) (\(cgImg.width)x\(cgImg.height))")
+            }
+        }
         
-        let barColor = day.2 ? primaryGreen : cyanColor.withAlphaComponent(0.85)
-        drawRoundedRect(ctx: ctx, rect: barRect, cornerRadius: 14, fill: barColor)
-        
-        // Day label below
-        drawText(day.0, in: CGRect(x: x - 6, y: chartBottom - 50, width: barWidth, height: 35), font: dayFont, color: day.2 ? .white : secondaryText, alignment: .center)
-        
-        // Value label above
-        let valStr = String(format: "%.1fk", Double(day.1) / 1000.0)
-        drawText(valStr, in: CGRect(x: x - 10, y: chartBottom + barH + 12, width: barWidth + 8, height: 30), font: stepsFont, color: day.2 ? primaryGreen : secondaryText, alignment: .center)
+        // Also render Web Version at 1.5x scale (approx 645x1398 for crisp retina web display)
+        let webRenderer = ImageRenderer(content: item.view)
+        webRenderer.scale = 1.5
+        if let cgImg = webRenderer.cgImage {
+            let rep = NSBitmapImageRep(cgImage: cgImg)
+            if let pngData = rep.representation(using: .png, properties: [:]) {
+                let webPath = "docs/images/screen_iphone_\(i + 1).png"
+                try? pngData.write(to: URL(fileURLWithPath: webPath))
+                print("Web iPhone created: \(webPath) (\(cgImg.width)x\(cgImg.height))")
+            }
+        }
     }
     
-    // Bottom Stat Highlight Cards
-    let summaryY = chartRect.minY - 260
-    let sCardW = (chartRect.width - 24) / 2
+    // 3. Render Apple Watch Screens at 2x scale (205x251 * 2 = 410x502 exact App Store pixel resolution!)
+    let watchRenderConfigs: [(view: AnyView, name: String)] = [
+        (AnyView(WatchScreen1View()), "01_Watch_App"),
+        (AnyView(WatchScreen2View()), "02_Watch_Komplikationen")
+    ]
     
-    // Left Stat Card
-    let leftCard = CGRect(x: chartRect.minX, y: summaryY, width: sCardW, height: 220)
-    drawRoundedRect(ctx: ctx, rect: leftCard, cornerRadius: 32, fill: cardBgDark, stroke: cardBorder, lineWidth: 2)
-    drawText("Ziele erreicht", in: CGRect(x: leftCard.minX + 30, y: leftCard.maxY - 65, width: leftCard.width - 60, height: 35), font: avgFont, color: secondaryText)
-    drawText("3 von 7 Tagen 🏆", in: CGRect(x: leftCard.minX + 30, y: leftCard.minY + 45, width: leftCard.width - 60, height: 60), font: NSFont.systemFont(ofSize: 42, weight: .heavy), color: yellowColor)
-    
-    // Right Stat Card
-    let rightCard = CGRect(x: chartRect.minX + sCardW + 24, y: summaryY, width: sCardW, height: 220)
-    drawRoundedRect(ctx: ctx, rect: rightCard, cornerRadius: 32, fill: cardBgDark, stroke: cardBorder, lineWidth: 2)
-    drawText("Gesamtstrecke", in: CGRect(x: rightCard.minX + 30, y: rightCard.maxY - 65, width: rightCard.width - 60, height: 35), font: avgFont, color: secondaryText)
-    drawText("48.5 km", in: CGRect(x: rightCard.minX + 30, y: rightCard.minY + 45, width: rightCard.width - 60, height: 60), font: NSFont.systemFont(ofSize: 42, weight: .heavy), color: cyanColor)
-    
-    saveImage(rep: rep, to: "AppStore_Screenshots/iPhone/02_iPhone_Wochenhistorie.png")
-}
-
-// -------------------------------------------------------------
-// Screen 3: Goal Setting & Motivations
-// -------------------------------------------------------------
-func generateIPhoneScreen3() {
-    let (rep, ctx) = makeIPhoneContext()
-    let screen = drawIPhoneBase(ctx: ctx, title: "Ziel flexibel & Motivation", subtitle: "Passe dein Ziel jederzeit an & erhalte Motivation")
-    
-    // Modal Sheet Card
-    let sheetRect = CGRect(x: screen.minX + 40, y: screen.maxY - 1320, width: screen.width - 80, height: 1060)
-    drawRoundedRect(ctx: ctx, rect: sheetRect, cornerRadius: 44, fill: cardBgDark, stroke: cardBorder, lineWidth: 2)
-    
-    // Grabber
-    let grabberW: CGFloat = 120
-    let grabberH: CGFloat = 10
-    drawRoundedRect(ctx: ctx, rect: CGRect(x: sheetRect.midX - (grabberW/2), y: sheetRect.maxY - 35, width: grabberW, height: grabberH), cornerRadius: 5, fill: NSColor.white.withAlphaComponent(0.3))
-    
-    let modalTitleFont = NSFont.systemFont(ofSize: 46, weight: .bold)
-    drawText("Tagesziel anpassen", in: CGRect(x: sheetRect.minX + 40, y: sheetRect.maxY - 110, width: sheetRect.width - 80, height: 60), font: modalTitleFont, color: .white, alignment: .center)
-    
-    // Current Target Display
-    let numFont = NSFont.systemFont(ofSize: 84, weight: .heavy)
-    let subNumFont = NSFont.systemFont(ofSize: 32, weight: .semibold)
-    drawText("10.000", in: CGRect(x: sheetRect.minX, y: sheetRect.maxY - 250, width: sheetRect.width, height: 100), font: numFont, color: primaryGreen, alignment: .center)
-    drawText("Schritte pro Tag", in: CGRect(x: sheetRect.minX, y: sheetRect.maxY - 305, width: sheetRect.width, height: 45), font: subNumFont, color: secondaryText, alignment: .center)
-    
-    // Quick Presets Grid (2x3)
-    let presets = [5000, 8000, 10000, 12000, 15000, 20000]
-    let pillW = (sheetRect.width - 120) / 3
-    let pillH: CGFloat = 75
-    let gridStartY = sheetRect.maxY - 520
-    
-    for (i, p) in presets.enumerated() {
-        let col = i % 3
-        let row = i / 3
-        let px = sheetRect.minX + 40 + CGFloat(col) * (pillW + 20)
-        let py = gridStartY - CGFloat(row) * (pillH + 20)
-        let pRect = CGRect(x: px, y: py, width: pillW, height: pillH)
-        
-        let isSelected = (p == 10000)
-        drawRoundedRect(
-            ctx: ctx,
-            rect: pRect,
-            cornerRadius: 22,
-            fill: isSelected ? primaryGreen : NSColor.white.withAlphaComponent(0.08),
-            stroke: isSelected ? nil : cardBorder,
-            lineWidth: 1
-        )
-        
-        let pFont = NSFont.systemFont(ofSize: 28, weight: .bold)
-        drawText("\(p.formatted())", in: CGRect(x: pRect.minX, y: pRect.minY + 20, width: pRect.width, height: 40), font: pFont, color: isSelected ? .black : .white, alignment: .center)
+    for (i, item) in watchRenderConfigs.enumerated() {
+        let renderer = ImageRenderer(content: item.view)
+        renderer.scale = 2.0 // 205 * 2 = 410, 251 * 2 = 502
+        if let cgImg = renderer.cgImage {
+            let rep = NSBitmapImageRep(cgImage: cgImg)
+            if let pngData = rep.representation(using: .png, properties: [:]) {
+                let appStorePath = "AppStore_Screenshots/AppleWatch/\(item.name).png"
+                try? pngData.write(to: URL(fileURLWithPath: appStorePath))
+                print("App Store Watch created: \(appStorePath) (\(cgImg.width)x\(cgImg.height))")
+                
+                let webPath = "docs/images/screen_watch_\(i + 1).png"
+                try? pngData.write(to: URL(fileURLWithPath: webPath))
+                print("Web Watch created: \(webPath) (\(cgImg.width)x\(cgImg.height))")
+            }
+        }
     }
     
-    // Notification Toggle Card
-    let notifY = gridStartY - 240
-    let notifRect = CGRect(x: sheetRect.minX + 40, y: notifY, width: sheetRect.width - 80, height: 160)
-    drawRoundedRect(ctx: ctx, rect: notifRect, cornerRadius: 28, fill: NSColor.white.withAlphaComponent(0.06), stroke: cardBorder, lineWidth: 1)
-    
-    let nTitleFont = NSFont.systemFont(ofSize: 32, weight: .bold)
-    let nDescFont = NSFont.systemFont(ofSize: 24, weight: .medium)
-    drawText("Smarte Motivations-Mitteilungen", in: CGRect(x: notifRect.minX + 30, y: notifRect.maxY - 60, width: notifRect.width - 180, height: 40), font: nTitleFont, color: .white)
-    drawText("Mitteilungen bei 25%, 50%, 75%, 90% und 100%", in: CGRect(x: notifRect.minX + 30, y: notifRect.minY + 30, width: notifRect.width - 180, height: 40), font: nDescFont, color: secondaryText)
-    
-    // iOS Toggle Switch Mockup (ON)
-    let toggleRect = CGRect(x: notifRect.maxX - 130, y: notifRect.midY - 26, width: 100, height: 55)
-    drawRoundedRect(ctx: ctx, rect: toggleRect, cornerRadius: 28, fill: primaryGreen)
-    let knobRect = CGRect(x: toggleRect.maxX - 52, y: toggleRect.minY + 3, width: 49, height: 49)
-    drawRoundedRect(ctx: ctx, rect: knobRect, cornerRadius: 24.5, fill: .white)
-    
-    // Save Button
-    let saveY = notifY - 140
-    let saveBtn = CGRect(x: sheetRect.minX + 40, y: saveY, width: sheetRect.width - 80, height: 105)
-    drawRoundedRect(ctx: ctx, rect: saveBtn, cornerRadius: 30, fill: primaryGreen)
-    drawText("Ziel speichern", in: CGRect(x: saveBtn.minX, y: saveBtn.minY + 28, width: saveBtn.width, height: 50), font: NSFont.systemFont(ofSize: 36, weight: .bold), color: .black, alignment: .center)
-    
-    saveImage(rep: rep, to: "AppStore_Screenshots/iPhone/03_iPhone_Ziele_Motivation.png")
+    print("ALL SCREENSHOTS GENERATED WITH REAL SWIFTUI & TYPOGRAPHY!")
 }
-
-// =========================================================================
-// MARK: - Apple Watch Screenshot Generator (410 x 502)
-// =========================================================================
-
-func makeWatchContext() -> (NSBitmapImageRep, CGContext) {
-    let w = 410
-    let h = 502
-    let rep = NSBitmapImageRep(
-        bitmapDataPlanes: nil,
-        pixelsWide: w,
-        pixelsHigh: h,
-        bitsPerSample: 8,
-        samplesPerPixel: 4,
-        hasAlpha: true,
-        isPlanar: false,
-        colorSpaceName: .deviceRGB,
-        bytesPerRow: 0,
-        bitsPerPixel: 0
-    )!
-    let ctx = NSGraphicsContext(bitmapImageRep: rep)!.cgContext
-    return (rep, ctx)
-}
-
-// -------------------------------------------------------------
-// Watch Screen 1: App Interface
-// -------------------------------------------------------------
-func generateWatchScreen1() {
-    let (rep, ctx) = makeWatchContext()
-    let w: CGFloat = 410
-    let h: CGFloat = 502
-    
-    // Full Watch Screen background (Black with rounded corners)
-    drawRoundedRect(ctx: ctx, rect: CGRect(x: 0, y: 0, width: w, height: h), cornerRadius: 70, fill: .black)
-    
-    // Top Bar (Time & Title)
-    let timeFont = NSFont.systemFont(ofSize: 18, weight: .semibold)
-    let titleFont = NSFont.systemFont(ofSize: 17, weight: .bold)
-    drawText("9:41", in: CGRect(x: 24, y: h - 38, width: 80, height: 24), font: timeFont, color: primaryGreen)
-    drawText("Schrittweise", in: CGRect(x: 0, y: h - 70, width: w, height: 26), font: titleFont, color: .white, alignment: .center)
-    
-    // Circular Progress Ring
-    let ringCenter = CGPoint(x: w / 2, y: h - 180)
-    drawProgressRing(ctx: ctx, center: ringCenter, radius: 68, lineWidth: 13, progress: 0.784)
-    
-    // Steps in Center of Ring
-    let stepsFont = NSFont.systemFont(ofSize: 32, weight: .heavy)
-    let goalFont = NSFont.systemFont(ofSize: 13, weight: .medium)
-    drawText("7.842", in: CGRect(x: 0, y: ringCenter.y - 18, width: w, height: 38), font: stepsFont, color: .white, alignment: .center)
-    drawText("Ziel: 10.000", in: CGRect(x: 0, y: ringCenter.y - 42, width: w, height: 20), font: goalFont, color: secondaryText, alignment: .center)
-    
-    // Percentage Status
-    let pctFont = NSFont.systemFont(ofSize: 14, weight: .bold)
-    drawText("78% • Noch 2.158", in: CGRect(x: 0, y: ringCenter.y - 105, width: w, height: 22), font: pctFont, color: primaryGreen, alignment: .center)
-    
-    // Metric Cards (Distance & Calories)
-    let cardW: CGFloat = 175
-    let cardH: CGFloat = 64
-    let cardY: CGFloat = 90
-    
-    // Distance Card
-    let dRect = CGRect(x: 24, y: cardY, width: cardW, height: cardH)
-    drawRoundedRect(ctx: ctx, rect: dRect, cornerRadius: 16, fill: NSColor(hex: 0x1A2220), stroke: cardBorder, lineWidth: 1)
-    let mLabelFont = NSFont.systemFont(ofSize: 12, weight: .medium)
-    let mValFont = NSFont.systemFont(ofSize: 17, weight: .bold)
-    drawText("Distanz", in: CGRect(x: dRect.minX + 12, y: dRect.maxY - 24, width: 100, height: 18), font: mLabelFont, color: cyanColor)
-    drawText("5.88 km", in: CGRect(x: dRect.minX + 12, y: dRect.minY + 8, width: 150, height: 26), font: mValFont, color: .white)
-    
-    // Calories Card
-    let cRect = CGRect(x: w - 24 - cardW, y: cardY, width: cardW, height: cardH)
-    drawRoundedRect(ctx: ctx, rect: cRect, cornerRadius: 16, fill: NSColor(hex: 0x1A2220), stroke: cardBorder, lineWidth: 1)
-    drawText("Kalorien", in: CGRect(x: cRect.minX + 12, y: cRect.maxY - 24, width: 100, height: 18), font: mLabelFont, color: orangeColor)
-    drawText("314 kcal", in: CGRect(x: cRect.minX + 12, y: cRect.minY + 8, width: 150, height: 26), font: mValFont, color: .white)
-    
-    // Goal change button
-    let btnRect = CGRect(x: 24, y: 22, width: w - 48, height: 50)
-    drawRoundedRect(ctx: ctx, rect: btnRect, cornerRadius: 25, fill: NSColor.white.withAlphaComponent(0.12))
-    let btnFont = NSFont.systemFont(ofSize: 15, weight: .semibold)
-    drawText("🎯  Ziel ändern", in: CGRect(x: btnRect.minX, y: btnRect.minY + 14, width: btnRect.width, height: 24), font: btnFont, color: .white, alignment: .center)
-    
-    saveImage(rep: rep, to: "AppStore_Screenshots/AppleWatch/01_Watch_App.png")
-}
-
-// -------------------------------------------------------------
-// Watch Screen 2: Complications
-// -------------------------------------------------------------
-func generateWatchScreen2() {
-    let (rep, ctx) = makeWatchContext()
-    let w: CGFloat = 410
-    let h: CGFloat = 502
-    
-    drawRoundedRect(ctx: ctx, rect: CGRect(x: 0, y: 0, width: w, height: h), cornerRadius: 70, fill: .black)
-    
-    // Time Header
-    let timeFont = NSFont.systemFont(ofSize: 18, weight: .semibold)
-    drawText("9:41", in: CGRect(x: 24, y: h - 38, width: 80, height: 24), font: timeFont, color: primaryGreen)
-    
-    // Header
-    let hTitleFont = NSFont.systemFont(ofSize: 16, weight: .bold)
-    let hSubFont = NSFont.systemFont(ofSize: 12, weight: .medium)
-    drawText("KOMPLIKATIONEN", in: CGRect(x: 0, y: h - 70, width: w, height: 22), font: hTitleFont, color: primaryGreen, alignment: .center)
-    drawText("3 Designs für dein Zifferblatt", in: CGRect(x: 0, y: h - 92, width: w, height: 18), font: hSubFont, color: secondaryText, alignment: .center)
-    
-    // 1. Rectangular Complication Preview
-    let comp1Rect = CGRect(x: 24, y: h - 230, width: w - 48, height: 120)
-    drawRoundedRect(ctx: ctx, rect: comp1Rect, cornerRadius: 18, fill: NSColor.white.withAlphaComponent(0.1), stroke: primaryGreen.withAlphaComponent(0.4), lineWidth: 1.5)
-    
-    let cTitleFont = NSFont.systemFont(ofSize: 13, weight: .semibold)
-    let cPctFont = NSFont.systemFont(ofSize: 13, weight: .bold)
-    drawText("🚶  Schritte", in: CGRect(x: comp1Rect.minX + 16, y: comp1Rect.maxY - 28, width: 140, height: 20), font: cTitleFont, color: primaryGreen)
-    drawText("78%", in: CGRect(x: comp1Rect.maxX - 80, y: comp1Rect.maxY - 28, width: 64, height: 20), font: cPctFont, color: primaryGreen, alignment: .right)
-    
-    let cBigFont = NSFont.systemFont(ofSize: 26, weight: .heavy)
-    let cSubFont = NSFont.systemFont(ofSize: 13, weight: .medium)
-    drawText("7.842", in: CGRect(x: comp1Rect.minX + 16, y: comp1Rect.minY + 36, width: 150, height: 35), font: cBigFont, color: .white)
-    drawText("/ 10.000  •  5.9 km", in: CGRect(x: comp1Rect.minX + 105, y: comp1Rect.minY + 41, width: 180, height: 20), font: cSubFont, color: secondaryText)
-    
-    // Slim progress bar inside complication
-    let barRect = CGRect(x: comp1Rect.minX + 16, y: comp1Rect.minY + 16, width: comp1Rect.width - 32, height: 8)
-    drawRoundedRect(ctx: ctx, rect: barRect, cornerRadius: 4, fill: NSColor.white.withAlphaComponent(0.2))
-    let fillRect = CGRect(x: barRect.minX, y: barRect.minY, width: barRect.width * 0.78, height: 8)
-    drawRoundedRect(ctx: ctx, rect: fillRect, cornerRadius: 4, fill: primaryGreen)
-    
-    // 2. Big Number Complication Preview
-    let comp2Rect = CGRect(x: 24, y: 130, width: (w - 60) / 2, height: 110)
-    drawRoundedRect(ctx: ctx, rect: comp2Rect, cornerRadius: 18, fill: NSColor.white.withAlphaComponent(0.08))
-    drawText("Große Zahl", in: CGRect(x: comp2Rect.minX + 10, y: comp2Rect.maxY - 25, width: comp2Rect.width - 20, height: 18), font: NSFont.systemFont(ofSize: 11, weight: .semibold), color: secondaryText, alignment: .center)
-    drawText("7.842", in: CGRect(x: comp2Rect.minX, y: comp2Rect.minY + 24, width: comp2Rect.width, height: 42), font: NSFont.systemFont(ofSize: 32, weight: .heavy), color: .white, alignment: .center)
-    
-    // 3. Circular Complication Preview
-    let comp3Rect = CGRect(x: comp2Rect.maxX + 12, y: 130, width: (w - 60) / 2, height: 110)
-    drawRoundedRect(ctx: ctx, rect: comp3Rect, cornerRadius: 18, fill: NSColor.white.withAlphaComponent(0.08))
-    drawText("Kreisring", in: CGRect(x: comp3Rect.minX + 10, y: comp3Rect.maxY - 25, width: comp3Rect.width - 20, height: 18), font: NSFont.systemFont(ofSize: 11, weight: .semibold), color: secondaryText, alignment: .center)
-    
-    let ringC = CGPoint(x: comp3Rect.midX, y: comp3Rect.minY + 45)
-    drawProgressRing(ctx: ctx, center: ringC, radius: 24, lineWidth: 6, progress: 0.78)
-    drawText("7.8k", in: CGRect(x: comp3Rect.minX, y: ringC.y - 10, width: comp3Rect.width, height: 20), font: NSFont.systemFont(ofSize: 13, weight: .bold), color: .white, alignment: .center)
-    
-    // Footer description
-    let fFont = NSFont.systemFont(ofSize: 12, weight: .medium)
-    drawText("Live-Updates im Hintergrund", in: CGRect(x: 0, y: 40, width: w, height: 22), font: fFont, color: primaryGreen, alignment: .center)
-    drawText("Direkt aus Apple Health ohne Batterieverlust", in: CGRect(x: 0, y: 20, width: w, height: 18), font: NSFont.systemFont(ofSize: 10, weight: .regular), color: secondaryText, alignment: .center)
-    
-    saveImage(rep: rep, to: "AppStore_Screenshots/AppleWatch/02_Watch_Komplikationen.png")
-}
-
-// Run All
-print("Starting screenshot generation...")
-generateIPhoneScreen1()
-generateIPhoneScreen2()
-generateIPhoneScreen3()
-generateWatchScreen1()
-generateWatchScreen2()
-print("All screenshots generated successfully!")
